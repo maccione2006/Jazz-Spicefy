@@ -102,19 +102,7 @@ body, button, input, textarea {
   text-shadow: 0 2px 16px rgba(0,0,0,.7);
 }
 
-/* Track list */
-[data-testid="tracklist-row"], .main-trackList-trackListRow {
-  border-radius: 5px;
-  transition: background var(--jazzclub-transition);
-}
-[data-testid="tracklist-row"]:hover, .main-trackList-trackListRow:hover {
-  background: rgba(var(--spice-rgb-jazzclub-amber), .08) !important;
-}
-[data-testid="tracklist-row"][aria-selected="true"] {
-  background: rgba(var(--spice-rgb-jazzclub-amber), .12) !important;
-}
-[data-testid="tracklist-row"][aria-selected="true"] * { color: var(--spice-button) !important; }
-
+/* Track list: leave Spotify's native row layout and visibility untouched. */
 /* Buttons */
 button[data-encore-id="buttonPrimary"], button[data-encore-id="buttonSecondary"],
 [data-testid="play-button"] {
@@ -242,18 +230,7 @@ button:not([disabled]):hover svg { color: var(--spice-button-active); }
 }
 [role="menuitem"]:hover { background: rgba(var(--spice-rgb-jazzclub-amber), .10) !important; }
 
-/* Keep playlist/library rows structurally untouched. */
-[data-testid="tracklist-row"] {
-  min-height: 56px;
-}
-[data-testid="tracklist-row"] [data-testid="tracklist-row-title"],
-[data-testid="tracklist-row"] [data-testid="tracklist-row-subtitle"],
-[data-testid="tracklist-row"] a {
-  color: var(--spice-text);
-}
-[data-testid="tracklist-row"] [data-testid="tracklist-row-subtitle"] {
-  color: var(--spice-subtext);
-}
+/* Playlist/library rows intentionally inherit Spotify defaults. */
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
