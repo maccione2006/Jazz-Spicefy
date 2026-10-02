@@ -180,33 +180,42 @@ button:not([disabled]):hover svg { color: var(--spice-button-active); }
   animation-play-state: running;
 }
 
-/* Large Now Playing artwork vinyl */
-.jazzclub-vinyl-art {
-  border-radius: 50% !important;
-  object-fit: cover !important;
+/* Large Now Playing vinyl.
+   Spotify uses the same square visual host for both static artwork and
+   animated/video artwork. Rotate that host instead of the child renderer. */
+[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl-host {
   position: relative !important;
-  z-index: 1;
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  isolation: isolate;
+  transform-origin: center center !important;
   box-shadow:
     inset 0 0 0 1px rgba(255,255,255,.08),
-    0 4px 16px rgba(0,0,0,.55);
+    0 6px 22px rgba(0,0,0,.58) !important;
   animation: jazzclub-vinyl-spin 9s linear infinite;
   animation-play-state: paused;
 }
-.jazzclub-vinyl-art.is-playing {
+[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl-host.is-playing {
   animation-play-state: running;
 }
 
-/* The large artwork receives these directly, so Spotify's changing wrapper DOM cannot break the effect. */
-[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] img.jazzclub-vinyl-art {
-  width: 100% !important;
-  height: 100% !important;
+/* Keep Spotify's static image and animated video fitted inside the vinyl. */
+[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl-host img,
+[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl-host video {
+  border-radius: 0 !important;
+  max-width: none !important;
 }
-[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] img.jazzclub-vinyl-art::before {
-  content: "";
+[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl-host img {
+  object-fit: cover !important;
+}
+[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl-host video {
+  object-fit: cover !important;
 }
 
 /* Scrollbars */
-
 * {
   scrollbar-width: thin;
   scrollbar-color: rgba(var(--spice-rgb-jazzclub-gold), .32) transparent;
@@ -250,8 +259,8 @@ button:not([disabled]):hover svg { color: var(--spice-button-active); }
 @media (prefers-reduced-motion: reduce) {
   .jazzclub-vinyl-host > img,
   .jazzclub-vinyl-host.is-playing > img,
-  .jazzclub-large-vinyl-host > img,
-  .jazzclub-large-vinyl-host.is-playing > img {
+  .jazzclub-large-vinyl-host,
+  .jazzclub-large-vinyl-host.is-playing {
     animation: none !important;
   }
   *, *::before, *::after {
