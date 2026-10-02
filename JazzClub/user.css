@@ -264,3 +264,50 @@ button:not([disabled]):hover svg { color: var(--spice-button-active); }
 [data-testid="tracklist-row"] [data-testid="tracklist-row-subtitle"] {
   color: var(--spice-subtext);
 }
+
+
+/* Spotify current desktop player: stable cover-art hook */
+[data-testid="now-playing-bar"] [data-testid="cover-art-button"] > div > div {
+  position: relative !important;
+  border-radius: 50% !important;
+  overflow: visible !important;
+  isolation: isolate;
+}
+[data-testid="now-playing-bar"] [data-testid="cover-art-button"] img {
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  position: relative !important;
+  z-index: 1;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), 0 4px 14px rgba(0,0,0,.52);
+  animation: jazzclub-vinyl-spin 9s linear infinite;
+  animation-play-state: paused;
+}
+[data-testid="now-playing-bar"] [data-testid="cover-art-button"] > div > div::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 50%;
+  pointer-events: none;
+  background: repeating-radial-gradient(circle at 50% 50%, transparent 0 7px, rgba(255,255,255,.035) 7.5px 8px, transparent 8.5px 12px);
+  mix-blend-mode: screen;
+  opacity: .72;
+}
+[data-testid="now-playing-bar"] [data-testid="cover-art-button"] > div > div::after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  width: 19%;
+  aspect-ratio: 1;
+  left: 40.5%;
+  top: 40.5%;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, #050505 0 13%, #D9A441 14% 19%, #2A1B10 20% 100%);
+  box-shadow: 0 0 0 1px rgba(255,209,102,.28), 0 1px 5px rgba(0,0,0,.65);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-testid="now-playing-bar"] [data-testid="cover-art-button"] img {
+    animation: none !important;
+  }
+}
