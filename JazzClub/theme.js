@@ -8,12 +8,17 @@
     'img[src*="i.scdn.co"]',
     'img[src*="scdn.co"]'
   ].join(",");
-  const LARGE_PANEL_SELECTOR = '[data-testid="NPV_Panel_OpenDiv"]';
-  const LARGE_COVER_SELECTOR =
-    '[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] img';
+
+  // Spotify has changed the parent structure around the large Now Playing
+  // artwork. Prefer the known stable child and use the panel as a fallback.
+  const LARGE_COVER_SELECTORS = [
+    '[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] img',
+    '[data-testid="track-visual-enhancement"] img'
+  ];
 
   let bound = false;
   let domObserver = null;
+  let scheduled = false;
 
   function isPlaying() {
     return Boolean(window.Spicetify?.Player?.isPlaying?.());
@@ -31,45 +36,45 @@
   }
 
   function findLargeCover() {
-    return document.querySelector(LARGE_COVER_SELECTOR);
+    for (const selector of LARGE_COVER_SELECTORS) {
+      const img = document.querySelector(selector);
+      if (img) return img;
+    }
+    return null;
   }
 
   function syncArtwork() {
+    scheduled = false;
     const playing = isPlaying();
     setPlaying(findSmallCover(), playing);
     setPlaying(findLargeCover(), playing);
   }
 
   function syncSoon() {
-    requestAnimationFrame(() => requestAnimationFrame(syncArtwork));
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(syncArtwork);
+    });
   }
 
-  function watchLargePanel() {
+  function watchDom() {
     if (domObserver || !document.body) return;
 
     domObserver = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
-        if (mutation.type !== "childList") continue;
-
-        for (const node of mutation.addedNodes) {
-          if (node.nodeType !== Node.ELEMENT_NODE) continue;
-
-          if (
-            node.matches?.(LARGE_PANEL_SELECTOR) ||
-            node.querySelector?.(LARGE_PANEL_SELECTOR) ||
-            node.matches?.(LARGE_COVER_SELECTOR) ||
-            node.querySelector?.(LARGE_COVER_SELECTOR)
-          ) {
-            syncSoon();
-            return;
-          }
+        if (mutation.type === "childList" || mutation.type === "attributes") {
+          syncSoon();
+          return;
         }
       }
     });
 
     domObserver.observe(document.body, {
       childList: true,
-      subtree: true
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["src", "class", "style"]
     });
 
     syncSoon();
@@ -84,13 +89,13 @@
     player.addEventListener("songchange", syncSoon);
     player.addEventListener("appready", syncSoon);
 
-    watchLargePanel();
+    watchDom();
     syncSoon();
     return true;
   }
 
   // Spicetify can inject theme.js before its Player API exists.
-  // Retry only during startup; playback itself remains event-driven.
+  // Startup retries are bounded; after binding, artwork stays event/DOM-driven.
   function start() {
     if (bindPlayer()) return;
 
