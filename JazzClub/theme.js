@@ -1,36 +1,36 @@
-/* JazzClub large artwork playback state: event-driven, no polling. */
+/* JazzClub playback state: event-driven artwork binding, no polling. */
 (() => {
   "use strict";
 
-  const ARTWORK_SELECTOR = 'img[src*="i.scdn.co"], img[src*="scdn.co"]';
+  const PLAYER_ROOT = '[data-testid="now-playing-bar"], .Root__now-playing-bar';
+  const SMALL_COVER_SELECTORS = [
+    'img[src*="i.scdn.co"]',
+    'img[src*="scdn.co"]',
+    'img[alt*="cover" i]',
+    'img[alt*="album" i]',
+    'img'
+  ];
+  const LARGE_COVER_SELECTOR =
+    '[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] img';
 
-  function findLargeArtwork() {
-    const candidates = [...document.querySelectorAll(ARTWORK_SELECTOR)]
-      .map((img) => ({
-        img,
-        rect: img.getBoundingClientRect()
-      }))
-      .filter(({ img, rect }) =>
-        img.naturalWidth > 0 &&
-        rect.width >= 300 &&
-        rect.height >= 300 &&
-        Math.abs(rect.width - rect.height) <= 4
-      )
-      .sort((a, b) => (b.rect.width * b.rect.height) - (a.rect.width * a.rect.height));
+  function findSmallCover() {
+    const root = document.querySelector(PLAYER_ROOT);
+    if (!root) return null;
 
-    return candidates[0]?.img ?? null;
+    for (const selector of SMALL_COVER_SELECTORS) {
+      const img = root.querySelector(selector);
+      if (img && img.naturalWidth > 0) return img;
+    }
+
+    return root.querySelector("img");
   }
 
-  function syncVinyl() {
-    const cover = findLargeArtwork();
+  function syncSmallVinyl() {
+    const cover = findSmallCover();
     if (!cover) return;
 
     const host = cover.parentElement;
     if (!host) return;
-
-    document.querySelectorAll(".jazzclub-vinyl-host").forEach((node) => {
-      if (node !== host) node.classList.remove("jazzclub-vinyl-host", "is-playing");
-    });
 
     host.classList.add("jazzclub-vinyl-host");
     host.classList.toggle(
@@ -39,14 +39,39 @@
     );
   }
 
+  function syncLargeVinyl() {
+    const cover = document.querySelector(LARGE_COVER_SELECTOR);
+    if (!cover) return;
+
+    const host = cover.parentElement;
+    if (!host) return;
+
+    document.querySelectorAll(".jazzclub-large-vinyl-host").forEach((node) => {
+      if (node !== host) {
+        node.classList.remove("jazzclub-large-vinyl-host", "is-playing");
+      }
+    });
+
+    host.classList.add("jazzclub-large-vinyl-host");
+    host.classList.toggle(
+      "is-playing",
+      Boolean(window.Spicetify?.Player?.isPlaying())
+    );
+  }
+
+  function syncAll() {
+    syncSmallVinyl();
+    syncLargeVinyl();
+  }
+
   function syncSoon() {
-    requestAnimationFrame(() => requestAnimationFrame(syncVinyl));
+    requestAnimationFrame(() => requestAnimationFrame(syncAll));
   }
 
   function init() {
     if (!window.Spicetify?.Player?.addEventListener) return;
 
-    Spicetify.Player.addEventListener("onplaypause", syncVinyl);
+    Spicetify.Player.addEventListener("onplaypause", syncAll);
     Spicetify.Player.addEventListener("songchange", syncSoon);
     Spicetify.Player.addEventListener("appready", syncSoon);
 
