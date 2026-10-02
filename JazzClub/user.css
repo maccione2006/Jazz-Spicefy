@@ -80,7 +80,7 @@ body, button, input, textarea {
 }
 
 /* Cards */
-[data-testid="card"], .main-card-card, [data-testid="grid-container"] > div {
+[data-testid="card"], .main-card-card {
   background: linear-gradient(145deg, rgba(33,21,12,.92), rgba(20,13,9,.94)) !important;
   border: 1px solid rgba(var(--spice-rgb-jazzclub-gold), .07);
   border-radius: var(--jazzclub-radius);
@@ -156,8 +156,9 @@ button:not([disabled]):hover svg { color: var(--spice-button-active); }
   --progress-bar-color: var(--spice-button) !important;
 }
 
-/* Vinyl */
-.jazzclub-vinyl-host {
+/* Vinyl: only the now-playing artwork, never playlist rows */
+[data-testid="now-playing-bar"] .jazzclub-vinyl-host,
+.Root__now-playing-bar .jazzclub-vinyl-host {
   position: relative !important;
   isolation: isolate;
   border-radius: 50% !important;
@@ -248,4 +249,18 @@ button:not([disabled]):hover svg { color: var(--spice-button-active); }
 *:focus-visible {
   outline: 2px solid var(--spice-button) !important;
   outline-offset: 2px;
+}
+
+
+/* Keep playlist/library rows structurally untouched. */
+[data-testid="tracklist-row"] {
+  min-height: 56px;
+}
+[data-testid="tracklist-row"] [data-testid="tracklist-row-title"],
+[data-testid="tracklist-row"] [data-testid="tracklist-row-subtitle"],
+[data-testid="tracklist-row"] a {
+  color: var(--spice-text);
+}
+[data-testid="tracklist-row"] [data-testid="tracklist-row-subtitle"] {
+  color: var(--spice-subtext);
 }
