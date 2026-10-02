@@ -42,7 +42,12 @@
     const playing = isPlaying();
 
     setPlaying(findSmallHost(), playing);
-    setPlaying(findLargeHost(), playing);
+
+    const largeHost = findLargeHost();
+    if (largeHost) {
+      largeHost.classList.add("jazzclub-large-vinyl-host");
+      setPlaying(largeHost, playing);
+    }
   }
 
   function syncSoon() {
