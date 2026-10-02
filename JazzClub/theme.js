@@ -8,10 +8,12 @@
     'img[src*="i.scdn.co"]',
     'img[src*="scdn.co"]'
   ].join(",");
+  const LARGE_PANEL_SELECTOR = '[data-testid="NPV_Panel_OpenDiv"]';
   const LARGE_COVER_SELECTOR =
     '[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] img';
 
   let bound = false;
+  let domObserver = null;
 
   function isPlaying() {
     return Boolean(window.Spicetify?.Player?.isPlaying?.());
@@ -19,7 +21,7 @@
 
   function setPlaying(img, playing) {
     if (!img) return;
-    img.classList.toggle("jazzclub-vinyl-art", true);
+    img.classList.add("jazzclub-vinyl-art");
     img.classList.toggle("is-playing", playing);
   }
 
@@ -42,6 +44,37 @@
     requestAnimationFrame(() => requestAnimationFrame(syncArtwork));
   }
 
+  function watchLargePanel() {
+    if (domObserver || !document.body) return;
+
+    domObserver = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.type !== "childList") continue;
+
+        for (const node of mutation.addedNodes) {
+          if (node.nodeType !== Node.ELEMENT_NODE) continue;
+
+          if (
+            node.matches?.(LARGE_PANEL_SELECTOR) ||
+            node.querySelector?.(LARGE_PANEL_SELECTOR) ||
+            node.matches?.(LARGE_COVER_SELECTOR) ||
+            node.querySelector?.(LARGE_COVER_SELECTOR)
+          ) {
+            syncSoon();
+            return;
+          }
+        }
+      }
+    });
+
+    domObserver.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    syncSoon();
+  }
+
   function bindPlayer() {
     const player = window.Spicetify?.Player;
     if (!player?.addEventListener || bound) return Boolean(player?.addEventListener);
@@ -50,12 +83,14 @@
     player.addEventListener("onplaypause", syncArtwork);
     player.addEventListener("songchange", syncSoon);
     player.addEventListener("appready", syncSoon);
+
+    watchLargePanel();
     syncSoon();
     return true;
   }
 
   // Spicetify can inject theme.js before its Player API exists.
-  // Retry only during startup; playback itself remains fully event-driven.
+  // Retry only during startup; playback itself remains event-driven.
   function start() {
     if (bindPlayer()) return;
 
