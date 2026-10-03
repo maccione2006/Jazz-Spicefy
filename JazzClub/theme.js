@@ -1,95 +1,61 @@
-/* JazzClub playback state: event-driven vinyl binding. */
+/* JazzClub playback state: robust event-driven artwork binding, no polling. */
 (() => {
   "use strict";
 
   const PLAYER_ROOT = '[data-testid="now-playing-bar"], .Root__now-playing-bar';
-  const SMALL_COVER_SELECTOR = [
-    '[data-testid="cover-art-button"] img',
+  const COVER_SELECTORS = [
     'img[src*="i.scdn.co"]',
-    'img[src*="scdn.co"]'
-  ].join(",");
+    'img[src*="scdn.co"]',
+    'img[alt*="cover" i]',
+    'img[alt*="album" i]',
+    'img'
+  ];
 
-  const LARGE_HOST_SELECTOR =
-    '[data-testid="NPV_Panel_OpenDiv"] .mxKzJhwzHi085Rmo_Nuj';
-
-  let bound = false;
-  let scheduled = false;
-
-  function isPlaying() {
-    return Boolean(window.Spicetify?.Player?.isPlaying?.());
-  }
-
-  function setPlaying(element, playing) {
-    if (!element) return;
-    element.classList.toggle("is-playing", playing);
-  }
-
-  function findSmallCover() {
+  function findCover() {
     const root = document.querySelector(PLAYER_ROOT);
-    return root?.querySelector(SMALL_COVER_SELECTOR) ?? null;
-  }
+    if (!root) return null;
 
-  function findSmallHost() {
-    return findSmallCover()?.closest(".jazzclub-vinyl-host") ?? null;
-  }
-
-  function findLargeHost() {
-    return document.querySelector(LARGE_HOST_SELECTOR);
-  }
-
-  function syncArtwork() {
-    scheduled = false;
-    const playing = isPlaying();
-
-    setPlaying(findSmallHost(), playing);
-
-    const largeHost = findLargeHost();
-    if (largeHost) {
-      largeHost.classList.add("jazzclub-large-vinyl-host");
-      setPlaying(largeHost, playing);
+    for (const selector of COVER_SELECTORS) {
+      const img = root.querySelector(selector);
+      if (img && img.naturalWidth > 0) return img;
     }
+    return root.querySelector("img");
+  }
+
+  function syncVinyl() {
+    const cover = findCover();
+    if (!cover) return;
+
+    const host = cover.parentElement;
+    if (!host) return;
+
+    host.classList.add("jazzclub-vinyl-host");
+    host.classList.toggle(
+      "is-playing",
+      Boolean(window.Spicetify?.Player?.isPlaying())
+    );
   }
 
   function syncSoon() {
-    if (scheduled) return;
-    scheduled = true;
-
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        syncArtwork();
-      });
-    });
+    requestAnimationFrame(() => requestAnimationFrame(syncVinyl));
   }
 
-  function syncAfterSongChange() {
-    syncSoon();
-    setTimeout(syncSoon, 120);
-  }
+  function init() {
+    if (!window.Spicetify?.Player) return;
 
-  function bindPlayer() {
-    const player = window.Spicetify?.Player;
-    if (!player?.addEventListener || bound) return Boolean(player?.addEventListener);
+    Spicetify.Player.addEventListener("onplaypause", syncVinyl);
+    Spicetify.Player.addEventListener("songchange", syncSoon);
 
-    bound = true;
-
-    player.addEventListener("onplaypause", syncArtwork);
-    player.addEventListener("songchange", syncAfterSongChange);
-    player.addEventListener("appready", syncSoon);
+    if (Spicetify.Player.addEventListener) {
+      Spicetify.Player.addEventListener("appready", syncSoon);
+    }
 
     syncSoon();
-    return true;
   }
 
-  function start() {
-    if (bindPlayer()) return;
-
-    let attempts = 0;
-    const retry = () => {
-      if (bindPlayer() || ++attempts >= 50) return;
-      setTimeout(retry, 100);
-    };
-    retry();
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init, { once: true });
+  } else {
+    init();
   }
-
-  start();
 })();
