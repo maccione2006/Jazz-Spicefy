@@ -144,27 +144,88 @@ button:not([disabled]):hover svg { color: var(--spice-button-active); }
   --progress-bar-color: var(--spice-button) !important;
 }
 
-/* Small player vinyl */
+/* Small player vinyl: black record with the album artwork as the centre label. */
 [data-testid="now-playing-bar"] .jazzclub-vinyl-host,
 .Root__now-playing-bar .jazzclub-vinyl-host {
   position: relative !important;
   isolation: isolate;
+  box-sizing: border-box !important;
   border-radius: 50% !important;
-  overflow: visible !important;
-  box-shadow: 0 3px 10px rgba(0,0,0,.48), 0 0 0 1px rgba(var(--spice-rgb-jazzclub-gold), .12);
-}
-[data-testid="now-playing-bar"] .jazzclub-vinyl-host > img,
-.Root__now-playing-bar .jazzclub-vinyl-host > img {
-  border-radius: 50% !important;
-  object-fit: cover !important;
-  position: relative;
-  z-index: 1;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), 0 4px 14px rgba(0,0,0,.52);
+  overflow: hidden !important;
+  background:
+    radial-gradient(circle at center,
+      #090909 0 17%,
+      #151515 17.5% 18.5%,
+      #050505 19% 30%,
+      #171717 30.5% 31.5%,
+      #050505 32% 43%,
+      #141414 43.5% 44.5%,
+      #030303 45% 100%) !important;
+  box-shadow:
+    0 3px 10px rgba(0,0,0,.55),
+    inset 0 0 0 1px rgba(255,255,255,.10),
+    0 0 0 1px rgba(var(--spice-rgb-jazzclub-gold), .12) !important;
   animation: jazzclub-vinyl-spin 9s linear infinite;
   animation-play-state: paused;
 }
-[data-testid="now-playing-bar"] .jazzclub-vinyl-host.is-playing > img,
-.Root__now-playing-bar .jazzclub-vinyl-host.is-playing > img {
+
+/* Soft record sheen; it rotates together with the host. */
+[data-testid="now-playing-bar"] .jazzclub-vinyl-host::before,
+.Root__now-playing-bar .jazzclub-vinyl-host::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 50%;
+  pointer-events: none;
+  background: conic-gradient(
+    from 18deg,
+    transparent 0 10%,
+    rgba(255,255,255,.08) 13%,
+    transparent 18% 48%,
+    rgba(255,255,255,.035) 52%,
+    transparent 58% 100%
+  );
+}
+
+/* Tiny spindle hole above the centre label. */
+[data-testid="now-playing-bar"] .jazzclub-vinyl-host::after,
+.Root__now-playing-bar .jazzclub-vinyl-host::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 3px;
+  height: 3px;
+  z-index: 4;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: #080604;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.18);
+  pointer-events: none;
+}
+
+[data-testid="now-playing-bar"] .jazzclub-vinyl-host > img,
+.Root__now-playing-bar .jazzclub-vinyl-host > img {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  width: 54% !important;
+  height: 54% !important;
+  max-width: 54% !important;
+  max-height: 54% !important;
+  transform: translate(-50%, -50%) !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  z-index: 3;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.10),
+    0 0 0 2px rgba(0,0,0,.55) !important;
+  animation: none !important;
+}
+
+[data-testid="now-playing-bar"] .jazzclub-vinyl-host.is-playing,
+.Root__now-playing-bar .jazzclub-vinyl-host.is-playing {
   animation-play-state: running;
 }
 
@@ -234,8 +295,8 @@ button:not([disabled]):hover svg { color: var(--spice-button-active); }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .jazzclub-vinyl-host > img,
-  .jazzclub-vinyl-host.is-playing > img,
+  .jazzclub-vinyl-host,
+  .jazzclub-vinyl-host.is-playing,
   .jazzclub-large-vinyl-host,
   .jazzclub-large-vinyl-host.is-playing {
     animation: none !important;
