@@ -296,115 +296,42 @@ button:not([disabled]):hover svg { color: var(--spice-button-active); }
   animation-play-state: running;
 }
 
-/* Large Now Playing vinyl — static artwork only.
-   theme.js creates one reusable overlay and swaps only the centre label.
-   Spotify Canvas/video stays hidden behind it and is never processed. */
-[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl-anchor {
+/* Large Now Playing vinyl.
+   Spotify uses the same square visual host for both static artwork and
+   animated/video artwork. Rotate that host instead of the child renderer. */
+[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl-host {
   position: relative !important;
-}
-
-/* Hide Spotify's own artwork only after JazzClub has a ready cover. */
-[data-testid="NPV_Panel_OpenDiv"]
-.jazzclub-large-vinyl-host > :not(.jazzclub-large-vinyl) {
-  visibility: hidden !important;
-}
-
-[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl {
-  position: absolute !important;
-  inset: 0 !important;
   width: 100% !important;
   height: 100% !important;
+  aspect-ratio: 1 / 1 !important;
   border-radius: 50% !important;
   overflow: hidden !important;
   isolation: isolate;
-  contain: paint;
-  z-index: 999 !important;
-  pointer-events: none !important;
-  transform-origin: 50% 50% !important;
-  will-change: auto;
-  background:
-    radial-gradient(
-      circle at 35% 26%,
-      rgba(255,255,255,.08) 0%,
-      rgba(255,255,255,.025) 18%,
-      transparent 32%
-    ),
-    repeating-radial-gradient(
-      circle at center,
-      #050505 0px,
-      #050505 2px,
-      #111111 3px,
-      #070707 4px,
-      #070707 6px
-    ) !important;
+  transform-origin: center center !important;
   box-shadow:
-    0 7px 22px rgba(0,0,0,.62),
-    inset 0 0 0 1px rgba(255,255,255,.10),
-    0 0 0 1px rgba(var(--spice-rgb-jazzclub-gold), .14) !important;
+    inset 0 0 0 1px rgba(255,255,255,.08),
+    0 6px 22px rgba(0,0,0,.58) !important;
   animation: jazzclub-vinyl-spin 9s linear infinite;
   animation-play-state: paused;
 }
 
-[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl.is-playing {
+[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl-host.is-playing {
   animation-play-state: running;
-  will-change: transform;
 }
 
-/* Soft reflected light, matching the small player vinyl. */
-[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  border-radius: 50%;
-  pointer-events: none;
-  background:
-    conic-gradient(
-      from 20deg,
-      transparent 0deg 42deg,
-      rgba(255,255,255,.07) 58deg,
-      transparent 78deg 205deg,
-      rgba(255,255,255,.025) 220deg,
-      transparent 242deg 360deg
-    );
+/* Keep Spotify's static image and animated video fitted inside the vinyl. */
+[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl-host img,
+[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl-host video {
+  border-radius: 0 !important;
+  max-width: none !important;
 }
 
-/* Static album artwork becomes the centre label. */
-[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl-label {
-  position: absolute !important;
-  left: 50% !important;
-  top: 50% !important;
-  width: 61% !important;
-  height: 61% !important;
-  min-width: 0 !important;
-  min-height: 0 !important;
-  max-width: 61% !important;
-  max-height: 61% !important;
-  transform: translate(-50%, -50%) !important;
-  border-radius: 50% !important;
+[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl-host img {
   object-fit: cover !important;
-  z-index: 3;
-  box-shadow:
-    0 0 0 2px rgba(0,0,0,.72),
-    0 0 0 3px rgba(255,255,255,.09) !important;
 }
 
-/* Large spindle hole. */
-[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 8px;
-  height: 8px;
-  z-index: 6;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: #111111;
-  box-shadow:
-    0 0 0 2px rgba(255,255,255,.18),
-    0 1px 3px rgba(0,0,0,.9);
-  pointer-events: none;
+[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl-host video {
+  object-fit: cover !important;
 }
 
 /* Scrollbars */
@@ -446,10 +373,9 @@ button:not([disabled]):hover svg { color: var(--spice-button-active); }
 @media (prefers-reduced-motion: reduce) {
   .jazzclub-vinyl-host,
   .jazzclub-vinyl-host.is-playing,
-  .jazzclub-large-vinyl,
-  .jazzclub-large-vinyl.is-playing {
+  .jazzclub-large-vinyl-host,
+  .jazzclub-large-vinyl-host.is-playing {
     animation: none !important;
-    will-change: auto !important;
   }
 
   *, *::before, *::after {
