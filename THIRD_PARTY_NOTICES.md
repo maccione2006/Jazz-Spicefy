@@ -58,3 +58,12 @@ removed. JazzClub adds only:
 Spotify Spice remains the source of the Vinyl settings UI, playback state,
 RPM behavior, album-color extraction/cache, gradients, grooves and Full App
 Display Vinyl behavior.
+
+## Current Spotify class compatibility
+
+Spotify Spice's Vinyl deploy build currently targets the historical
+`.cover-art` and `.cover-art-image` classes for the large Now Playing View.
+Current Spotify can omit those class names. JazzClub's Marketplace bundle adds
+only those semantic classes back to the current artwork host/image at runtime.
+The large record is then rendered by Spotify Spice's original CSS rather than a
+JazzClub reimplementation.
