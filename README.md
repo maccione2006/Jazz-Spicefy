@@ -11,6 +11,7 @@ JazzClub is a cross-platform Spicetify theme that turns Spotify Desktop into a l
 - cream typography
 - hi-fi-inspired bottom player
 - stable mini-vinyl artwork with playback-aware rotation
+- bundled Spotify Spice Vinyl engine for RPM/settings and album-derived vinyl color
 - dark vinyl-style Play/Pause knob with an amber ring
 - amber Spotify / Encore buttons, including hover and focus states
 - amber current-track equalizer
@@ -80,11 +81,13 @@ The default installer:
 
 1. locates your Spicetify config directory using `spicetify -c`
 2. copies `JazzClub/` into the correct `Themes/JazzClub` directory
-3. enables CSS, theme colors and `theme.js`
-4. sets `JazzClub` as the current theme and color scheme
-5. enables Spicetify's built-in `fullAppDisplay.js`
-6. enables the built-in `lyrics-plus` custom app
-7. runs `spicetify apply`
+3. copies the bundled `Extensions/vinyl.js` into the correct Spicetify Extensions directory
+4. enables the Vinyl extension
+5. enables CSS, theme colors and `theme.js`
+6. sets `JazzClub` as the current theme and color scheme
+7. enables Spicetify's built-in `fullAppDisplay.js`
+8. enables the built-in `lyrics-plus` custom app
+9. runs `spicetify apply`
 
 It does **not** install or enable Track Peek.
 
@@ -121,10 +124,13 @@ Jazz-Spicefy/
 │   ├── color.ini
 │   ├── user.css
 │   └── theme.js
+├── Extensions/
+│   └── vinyl.js
 ├── install.ps1
 ├── install.sh
 ├── CHANGELOG.md
 ├── LICENSE
+├── THIRD_PARTY_NOTICES.md
 └── README.md
 ```
 
@@ -134,6 +140,14 @@ JazzClub targets current Spotify Desktop + current Spicetify. Spotify can change
 
 The theme favors semantic/data attributes and established Spicetify classes. JavaScript is limited to playback-aware mini-vinyl state and does not use a polling loop.
 
+## Track Peek
+
+Track Peek is intentionally **not included** in this release.
+
+## Third-party component
+
+JazzClub bundles the MIT-licensed Vinyl extension build from **spotify-spice** by Grason Chan. The original copyright and license notice are preserved in `THIRD_PARTY_NOTICES.md`.
+
 ## License
 
-MIT.
+JazzClub: MIT. See `THIRD_PARTY_NOTICES.md` for bundled third-party code.

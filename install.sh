@@ -44,7 +44,18 @@ fi
 
 cp -R "$SOURCE_THEME" "$TARGET_THEME"
 
+SOURCE_VINYL="$SCRIPT_DIR/Extensions/vinyl.js"
+EXTENSIONS_ROOT="$SPICETIFY_HOME/Extensions"
+if [[ -f "$SOURCE_VINYL" ]]; then
+  mkdir -p "$EXTENSIONS_ROOT"
+  cp "$SOURCE_VINYL" "$EXTENSIONS_ROOT/vinyl.js"
+fi
+
 spicetify config current_theme JazzClub color_scheme JazzClub inject_css 1 replace_colors 1 inject_theme_js 1
+
+if [[ -f "$SOURCE_VINYL" ]]; then
+  spicetify config extensions vinyl.js
+fi
 
 if [[ "$THEME_ONLY" -eq 0 ]]; then
   spicetify config extensions fullAppDisplay.js
@@ -59,4 +70,5 @@ echo "Tema: $TARGET_THEME"
 if [[ "$THEME_ONLY" -eq 0 ]]; then
   echo "Full App Display + Lyrics Plus abilitati."
 fi
+echo "Vinyl engine installato e abilitato."
 echo "Track Peek non e' incluso."

@@ -38,7 +38,18 @@ if (Test-Path $targetTheme) {
 
 Copy-Item $sourceTheme $targetTheme -Recurse -Force
 
+$sourceVinyl = Join-Path $PSScriptRoot "Extensions\vinyl.js"
+$extensionsRoot = Join-Path $spicetifyHome "Extensions"
+if (Test-Path $sourceVinyl) {
+  New-Item -ItemType Directory -Path $extensionsRoot -Force | Out-Null
+  Copy-Item $sourceVinyl (Join-Path $extensionsRoot "vinyl.js") -Force
+}
+
 spicetify config current_theme JazzClub color_scheme JazzClub inject_css 1 replace_colors 1 inject_theme_js 1
+
+if (Test-Path $sourceVinyl) {
+  spicetify config extensions vinyl.js
+}
 
 if (-not $ThemeOnly) {
   spicetify config extensions fullAppDisplay.js
@@ -53,4 +64,5 @@ Write-Host "Tema: $targetTheme"
 if (-not $ThemeOnly) {
   Write-Host "Full App Display + Lyrics Plus abilitati."
 }
+Write-Host "Vinyl engine installato e abilitato."
 Write-Host "Track Peek non e' incluso."

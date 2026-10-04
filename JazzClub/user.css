@@ -592,3 +592,44 @@ body.fad-activated #fad-lyrics-plus-container {
 }
 
 /* ===== JAZZCLUB RELEASE PATCH END ===== */
+
+/* ===== JAZZCLUB VINYL ENGINE INTEGRATION BEGIN ===== */
+
+/* Reuse Spotify Spice Vinyl's album-derived color/RPM variables on the
+   stable JazzClub mini-vinyl. No second color-analysis loop is needed. */
+:root[data-colored-vinyl="true"]
+  [data-testid="now-playing-bar"]
+  [data-testid="cover-art-button"] > div:has(> img),
+:root[data-colored-vinyl="true"]
+  .Root__now-playing-bar
+  [data-testid="cover-art-button"] > div:has(> img),
+:root[data-colored-vinyl="true"]
+  [data-testid="now-playing-bar"]
+  .jazzclub-vinyl-host,
+:root[data-colored-vinyl="true"]
+  .Root__now-playing-bar
+  .jazzclub-vinyl-host {
+  background:
+    var(--vinyl-shine),
+    var(--vinyl-groove),
+    var(--vinyl-base) !important;
+  animation-duration: var(--vinyl-duration, 9s) !important;
+  animation-play-state: var(--vinyl-play-state, paused) !important;
+}
+
+:root[data-vinyl-rotation="false"]
+  [data-testid="now-playing-bar"]
+  [data-testid="cover-art-button"] > div:has(> img),
+:root[data-vinyl-rotation="false"]
+  .Root__now-playing-bar
+  [data-testid="cover-art-button"] > div:has(> img),
+:root[data-vinyl-rotation="false"]
+  [data-testid="now-playing-bar"]
+  .jazzclub-vinyl-host,
+:root[data-vinyl-rotation="false"]
+  .Root__now-playing-bar
+  .jazzclub-vinyl-host {
+  animation: none !important;
+}
+
+/* ===== JAZZCLUB VINYL ENGINE INTEGRATION END ===== */
