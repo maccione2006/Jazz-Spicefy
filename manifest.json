@@ -1,6 +1,6 @@
 {
   "name": "JazzClub",
-  "description": "Late-night jazz club and vintage hi-fi theme with dark walnut surfaces, vivid amber accents, cream typography, and Spotify Spice album-colored vinyl in both the player and Now Playing View.",
+  "description": "Late-night jazz club and vintage hi-fi theme with dark walnut surfaces, vivid amber accents, cream typography, and the full Spotify Spice Vinyl feature set.",
   "preview": "preview.svg",
   "usercss": "JazzClub/marketplace.css",
   "schemes": "JazzClub/color.ini",
@@ -19,6 +19,6 @@
     "hifi"
   ],
   "include": [
-    "https://raw.githubusercontent.com/maccione2006/Jazz-Spicefy/667a44f25ba7593c24f8b78adecb73c94152ecfe/JazzClub/marketplace.js"
+    "https://raw.githubusercontent.com/maccione2006/Jazz-Spicefy/9fc26a4d9d2feb5d63d380ce54e4768bd0e53016/Extensions/vinyl.js"
   ]
 }
