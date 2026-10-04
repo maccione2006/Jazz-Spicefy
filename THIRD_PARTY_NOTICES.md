@@ -33,3 +33,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+
+## Current Marketplace integration
+
+The Marketplace build loads the official Spotify Spice Vinyl extension from
+`deploy/extensions/vinyl.js`. JazzClub's compatibility CSS reuses the
+extension's public CSS variables and visual recipe for current Spotify DOM,
+including `--vinyl-shine`, `--vinyl-groove`, `--vinyl-base`,
+`--vinyl-duration`, `--vinyl-play-state`, and the colored-vinyl state.
+
+The large Now Playing View adapter changes selectors only; the vinyl visual
+formula, playback state, RPM/settings behavior, and album-color engine remain
+from Spotify Spice.
