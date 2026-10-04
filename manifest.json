@@ -1,8 +1,8 @@
 {
   "name": "JazzClub",
-  "description": "Late-night jazz club and vintage hi-fi theme with dark walnut surfaces, vivid amber accents and cream typography.",
+  "description": "Late-night jazz club and vintage hi-fi theme with dark walnut surfaces, vivid amber accents, cream typography and a Marketplace-safe CSS-only vinyl treatment.",
   "preview": "preview.svg",
-  "usercss": "JazzClub/user.css",
+  "usercss": "JazzClub/marketplace.css",
   "schemes": "JazzClub/color.ini",
   "readme": "README.md",
   "authors": [

@@ -31,13 +31,14 @@ JazzClub deliberately leaves Spotify's track-row layout and visibility untouched
 
 ## Marketplace installation
 
-JazzClub is published through the Spicetify Marketplace as a **pure theme package**.
-The Marketplace version installs the visual theme and color scheme only, so it
-does not depend on external JavaScript and remains compatible with Marketplace's
-theme loader.
+JazzClub is published through the Spicetify Marketplace as a **pure CSS + color-scheme theme package**.
+Marketplace uses `JazzClub/marketplace.css`, a dedicated self-contained build that does not
+depend on `theme.js` or external JavaScript. This keeps the Marketplace install stable while
+preserving the walnut/amber UI, themed Marketplace page, right Now Playing panel and CSS-only
+mini-vinyl appearance.
 
-The standalone installers below additionally enable the bundled Vinyl extension,
-Full App Display and Lyrics Plus.
+The standalone installers below use `JazzClub/user.css` and additionally enable the bundled
+Vinyl extension, Full App Display and Lyrics Plus.
 
 ## Quick install
 
