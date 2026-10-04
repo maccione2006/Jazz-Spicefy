@@ -1148,12 +1148,16 @@ video[src^="blob:"] {
 
 
 /* ===== SPOTIFY SPICE VINYL ADAPTER BEGIN =====
-   The complete Spotify Spice Vinyl extension supplies every Vinyl feature.
-   JazzClub only adapts the mini-player host and allows the large upstream
-   .cover-art record to overflow correctly in current Spotify. */
+   The complete Spotify Spice Vinyl extension supplies the Vinyl engine:
+   settings, RPM, play state, color extraction/cache and CSS variables.
 
-/* Mini player uses the exact Spotify Spice visual variables, duration and
-   playback state. Spotify Spice itself does not ship a mini-player selector. */
+   The diagnostic from current Spotify confirms the bridge classes are present
+   and the Spotify Spice variables are alive. The remaining incompatibility is
+   selector scope: upstream still styles the large record only below #main.
+   Current Now Playing View lives in the right sidebar, so the exact upstream
+   large-vinyl recipe is mirrored here onto the bridge class. */
+
+/* Mini player: Spotify Spice engine + JazzClub's proven host. */
 [data-testid="now-playing-bar"] [data-testid="cover-art-button"] > div:has(img),
 .Root__now-playing-bar [data-testid="cover-art-button"] > div:has(img),
 [data-testid="now-playing-bar"] .jazzclub-vinyl-host,
@@ -1171,10 +1175,14 @@ video[src^="blob:"] {
     0 0 2px #000 !important;
 }
 
-/* The JS bridge adds Spotify Spice's original class names to current NPV DOM.
-   These rules do NOT draw the large vinyl; upstream spotify-spice does. */
+/* Every ancestor between track-visual-enhancement and the old .cover-art node
+   must allow Spotify Spice's 1.5x pseudo-element record to extend outward. */
 .jazzclub-spotify-spice-visual,
+.jazzclub-spotify-spice-visual > *,
 .jazzclub-spotify-spice-drop,
+.jazzclub-spotify-spice-drop > a,
+.jazzclub-spotify-spice-drop > a > div,
+.jazzclub-spotify-spice-drop :has(> .jazzclub-spotify-spice-large-vinyl),
 .jazzclub-spotify-spice-large-vinyl {
   overflow: visible !important;
 }
@@ -1186,8 +1194,63 @@ video[src^="blob:"] {
   box-shadow: none !important;
 }
 
-/* Spotify Spice's own Settings explicitly recommends Canvas off to keep
-   Vinyl visible in NPV. Scope that behavior to the Now Playing panel only. */
+/* Exact large .cover-art treatment from spotify-spice, applied outside #main. */
+.jazzclub-spotify-spice-large-vinyl {
+  margin: calc(17% + 5px) !important;
+  position: relative !important;
+  border-radius: 50% !important;
+  animation:
+    rotate-vinyl var(--vinyl-duration) linear infinite
+    var(--vinyl-play-state) !important;
+}
+
+/* Exact spotify-spice pseudo-element sizing. */
+.jazzclub-spotify-spice-large-vinyl::before,
+.jazzclub-spotify-spice-large-vinyl::after {
+  width: 100% !important;
+  height: 100% !important;
+  display: unset !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  border-radius: 50% !important;
+  content: "" !important;
+  pointer-events: none !important;
+}
+
+/* Exact spotify-spice record body:
+   shine + grooves + base, then scale to 1.5x around the centre label. */
+.jazzclub-spotify-spice-large-vinyl::before {
+  background:
+    var(--vinyl-shine),
+    var(--vinyl-groove),
+    var(--vinyl-base) !important;
+  box-shadow:
+    0 0 5px var(--vinyl-shadow-inset) inset,
+    0 0 2px #000 !important;
+  transform: scale(1.5) !important;
+  filter: drop-shadow(0 0 2px #000) !important;
+}
+
+/* Exact spotify-spice inner shadow. */
+.jazzclub-spotify-spice-large-vinyl::after {
+  box-shadow:
+    0 0 10px var(--vinyl-inner-shadow-inset) inset !important;
+}
+
+/* Current Spotify's fallback icon is the modern equivalent of
+   spotify-spice .cover-art-icon. */
+.jazzclub-spotify-spice-large-vinyl > div:has(svg) {
+  display: none !important;
+}
+
+/* Exact spotify-spice cover-art-image treatment. */
+.jazzclub-spotify-spice-large-vinyl-label {
+  background-color: #0f0f0f !important;
+  border-radius: 50% !important;
+}
+
+/* Spotify Spice itself recommends Canvas off to keep Vinyl in NPV. */
 .Root__right-sidebar:has(.jazzclub-spotify-spice-large-vinyl) .canvasVideoContainerNPV,
 .Root__right-sidebar:has(.jazzclub-spotify-spice-large-vinyl) video[src^="blob:"],
 [data-testid="NPV_Panel_OpenDiv"]:has(.jazzclub-spotify-spice-large-vinyl) .canvasVideoContainerNPV,
@@ -1195,7 +1258,7 @@ video[src^="blob:"] {
   display: none !important;
 }
 
-/* Keep the approved Play/Pause glyph white. */
+/* Keep approved Play/Pause glyph white. */
 [data-testid="control-button-playpause"],
 [data-testid="control-button-playpause"] * {
   --text-base: #fff4d6 !important;
