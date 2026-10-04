@@ -840,3 +840,254 @@ aside#Desktop_PanelContainer_Id:has([data-testid="NPV_Panel_OpenDiv"]) {
 }
 
 /* ===== JAZZCLUB MARKETPLACE CSS-ONLY LAYER END ===== */
+
+
+/* ===== JAZZCLUB MARKETPLACE VINYL + PLAY GLYPH FIX BEGIN ===== */
+
+/* Stronger Play/Pause glyph override for current Encore controls.
+   Keep the approved dark knob + amber ring, but the glyph itself is warm white. */
+[data-testid="control-button-playpause"] {
+  --text-base: #fff4d6 !important;
+  --text-subdued: #fff4d6 !important;
+  --text-bright-accent: #fff4d6 !important;
+  --essential-base: #fff4d6 !important;
+  --essential-subdued: #fff4d6 !important;
+  --decorative-base: #fff4d6 !important;
+  color: #fff4d6 !important;
+}
+
+[data-testid="control-button-playpause"] :is(svg, path, polygon, rect, circle),
+[data-testid="control-button-playpause"] > * :is(svg, path, polygon, rect, circle) {
+  color: #fff4d6 !important;
+  fill: #fff4d6 !important;
+  stroke: #fff4d6 !important;
+}
+
+/* Playlist/album primary Play icon: amber button, white play/pause glyph. */
+#main button[data-testid="play-button"] {
+  color: #fff4d6 !important;
+}
+
+#main button[data-testid="play-button"] :is(svg, path, polygon, rect, circle) {
+  color: #fff4d6 !important;
+  fill: #fff4d6 !important;
+  stroke: #fff4d6 !important;
+}
+
+/* Modern mini-player vinyl.
+   Covers both the older wrapper and current cover-art-image markup. */
+[data-testid="now-playing-widget"] [data-testid="cover-art-button"],
+[data-testid="now-playing-bar"] [data-testid="cover-art-button"],
+.Root__now-playing-bar [data-testid="cover-art-button"] {
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  border-radius: 50% !important;
+}
+
+[data-testid="now-playing-widget"] [data-testid="cover-art-button"] > div:has(img),
+[data-testid="now-playing-bar"] [data-testid="cover-art-button"] > div:has(img),
+.Root__now-playing-bar [data-testid="cover-art-button"] > div:has(img),
+[data-testid="now-playing-widget"] [data-testid="CoverSlotCollapsed__container"]:has([data-testid="cover-art-image"]) {
+  position: relative !important;
+  width: 56px !important;
+  height: 56px !important;
+  min-width: 56px !important;
+  min-height: 56px !important;
+  max-width: 56px !important;
+  max-height: 56px !important;
+  flex: 0 0 56px !important;
+  box-sizing: border-box !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  transform-origin: center !important;
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255,255,255,.10) 0 7%, transparent 24%),
+    repeating-radial-gradient(
+      circle at center,
+      #030303 0 2px,
+      #11100f 3px,
+      #050505 4px 6px
+    ) !important;
+  box-shadow:
+    0 4px 12px rgba(0,0,0,.62),
+    inset 0 0 0 1px rgba(255,255,255,.09),
+    0 0 0 1px rgba(255,181,46,.16) !important;
+  animation: jazzclub-vinyl-spin 9s linear infinite !important;
+  animation-play-state: paused !important;
+}
+
+/* Spotify exposes the playback state through the Play/Pause button aria-label.
+   This gives Marketplace playback-aware rotation without JavaScript. */
+[data-testid="now-playing-bar"]:has(
+  [data-testid="control-button-playpause"][aria-label="Pause"]
+)
+[data-testid="cover-art-button"] > div:has(img),
+.Root__now-playing-bar:has(
+  [data-testid="control-button-playpause"][aria-label="Pause"]
+)
+[data-testid="cover-art-button"] > div:has(img),
+[data-testid="now-playing-bar"]:has(
+  [data-testid="control-button-playpause"][aria-label="Metti in pausa"]
+)
+[data-testid="cover-art-button"] > div:has(img),
+.Root__now-playing-bar:has(
+  [data-testid="control-button-playpause"][aria-label="Metti in pausa"]
+)
+[data-testid="cover-art-button"] > div:has(img) {
+  animation-play-state: running !important;
+}
+
+[data-testid="now-playing-widget"] [data-testid="cover-art-image"],
+[data-testid="now-playing-bar"] [data-testid="cover-art-image"],
+.Root__now-playing-bar [data-testid="cover-art-image"],
+[data-testid="now-playing-widget"] [data-testid="cover-art-button"] img,
+[data-testid="now-playing-bar"] [data-testid="cover-art-button"] img,
+.Root__now-playing-bar [data-testid="cover-art-button"] img {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
+  max-width: 34px !important;
+  max-height: 34px !important;
+  transform: translate(-50%, -50%) !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  z-index: 3 !important;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.10),
+    0 0 0 2px rgba(0,0,0,.64) !important;
+}
+
+/* Large vinyl in the Now Playing panel.
+   Use only the modern static artwork path confirmed by current Spotify;
+   do not change panel layout or track-list layout. */
+.Root__right-sidebar
+[data-testid="track-visual-enhancement"]
+[data-testid="track-visual-enhancement"] {
+  overflow: visible !important;
+}
+
+.Root__right-sidebar
+[data-testid="track-visual-enhancement"]
+[data-testid="cover-drop-target"]:has(> img),
+.Root__right-sidebar
+[data-testid="track-visual-enhancement"]
+> [data-testid="cover-drop-target"]:has(> img) {
+  position: relative !important;
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  background:
+    radial-gradient(circle at 36% 25%, rgba(255,255,255,.10) 0 6%, transparent 23%),
+    repeating-radial-gradient(
+      circle at center,
+      #020202 0 4px,
+      #11100f 5px,
+      #050505 6px 10px
+    ) !important;
+  box-shadow:
+    0 18px 42px rgba(0,0,0,.54),
+    inset 0 0 0 1px rgba(255,255,255,.08),
+    0 0 0 1px rgba(217,164,65,.14) !important;
+}
+
+.Root__right-sidebar
+[data-testid="track-visual-enhancement"]
+[data-testid="cover-drop-target"]:has(> img)::before,
+.Root__right-sidebar
+[data-testid="track-visual-enhancement"]
+> [data-testid="cover-drop-target"]:has(> img)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  border-radius: 50%;
+  background:
+    conic-gradient(
+      from 20deg,
+      transparent 0 38deg,
+      rgba(255,255,255,.075) 56deg,
+      transparent 78deg 205deg,
+      rgba(255,255,255,.03) 222deg,
+      transparent 244deg 360deg
+    );
+}
+
+.Root__right-sidebar
+[data-testid="track-visual-enhancement"]
+[data-testid="cover-drop-target"]:has(> img)::after,
+.Root__right-sidebar
+[data-testid="track-visual-enhancement"]
+> [data-testid="cover-drop-target"]:has(> img)::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  z-index: 6;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #050403;
+  box-shadow:
+    0 0 0 2px rgba(255,244,214,.22),
+    0 0 4px rgba(0,0,0,.9);
+  pointer-events: none;
+}
+
+.Root__right-sidebar
+[data-testid="track-visual-enhancement"]
+[data-testid="cover-drop-target"]:has(> img)
+> img,
+.Root__right-sidebar
+[data-testid="track-visual-enhancement"]
+> [data-testid="cover-drop-target"]:has(> img)
+> img {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  width: 48% !important;
+  height: 48% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: 48% !important;
+  max-height: 48% !important;
+  transform: translate(-50%, -50%) !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  z-index: 3 !important;
+  box-shadow:
+    0 0 0 2px rgba(0,0,0,.72),
+    0 0 0 3px rgba(255,255,255,.08) !important;
+}
+
+/* Rotate the large record while Spotify is playing, CSS-only. */
+.Root:has([data-testid="control-button-playpause"][aria-label="Pause"])
+.Root__right-sidebar
+[data-testid="track-visual-enhancement"]
+[data-testid="cover-drop-target"]:has(> img),
+.Root:has([data-testid="control-button-playpause"][aria-label="Metti in pausa"])
+.Root__right-sidebar
+[data-testid="track-visual-enhancement"]
+[data-testid="cover-drop-target"]:has(> img) {
+  animation: jazzclub-vinyl-spin 9s linear infinite !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-testid="now-playing-widget"] [data-testid="cover-art-button"] > div:has(img),
+  [data-testid="now-playing-bar"] [data-testid="cover-art-button"] > div:has(img),
+  .Root__now-playing-bar [data-testid="cover-art-button"] > div:has(img),
+  .Root__right-sidebar [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"]:has(> img) {
+    animation: none !important;
+  }
+}
+
+/* ===== JAZZCLUB MARKETPLACE VINYL + PLAY GLYPH FIX END ===== */
