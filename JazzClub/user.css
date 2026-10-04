@@ -296,44 +296,6 @@ button:not([disabled]):hover svg { color: var(--spice-button-active); }
   animation-play-state: running;
 }
 
-/* Large Now Playing vinyl.
-   Spotify uses the same square visual host for both static artwork and
-   animated/video artwork. Rotate that host instead of the child renderer. */
-[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl-host {
-  position: relative !important;
-  width: 100% !important;
-  height: 100% !important;
-  aspect-ratio: 1 / 1 !important;
-  border-radius: 50% !important;
-  overflow: hidden !important;
-  isolation: isolate;
-  transform-origin: center center !important;
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,.08),
-    0 6px 22px rgba(0,0,0,.58) !important;
-  animation: jazzclub-vinyl-spin 9s linear infinite;
-  animation-play-state: paused;
-}
-
-[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl-host.is-playing {
-  animation-play-state: running;
-}
-
-/* Keep Spotify's static image and animated video fitted inside the vinyl. */
-[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl-host img,
-[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl-host video {
-  border-radius: 0 !important;
-  max-width: none !important;
-}
-
-[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl-host img {
-  object-fit: cover !important;
-}
-
-[data-testid="NPV_Panel_OpenDiv"] .jazzclub-large-vinyl-host video {
-  object-fit: cover !important;
-}
-
 /* Scrollbars */
 * {
   scrollbar-width: thin;
@@ -397,3 +359,236 @@ button:not([disabled]):hover svg { color: var(--spice-button-active); }
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/* ===== JAZZCLUB RELEASE PATCH BEGIN ===== */
+
+/* Modern Spotify / Encore accent system.
+   Keep primary/accent buttons amber in normal, hover, focus and press states. */
+.encore-dark-theme .encore-bright-accent-set,
+.encore-dark-theme .encore-bright-accent-set:hover,
+.encore-dark-theme .encore-bright-accent-set:focus,
+.encore-dark-theme .encore-bright-accent-set:focus-visible,
+.encore-dark-theme .encore-bright-accent-set:active,
+.encore-light-theme .encore-bright-accent-set,
+.encore-light-theme .encore-bright-accent-set:hover,
+.encore-light-theme .encore-bright-accent-set:focus-visible,
+.encore-light-theme .encore-bright-accent-set:active {
+  --background-base: #ffb52e !important;
+  --background-highlight: #ffd166 !important;
+  --background-press: #d9a441 !important;
+  --background-elevated-base: #ffb52e !important;
+  --background-elevated-highlight: #ffd166 !important;
+  --background-elevated-press: #d9a441 !important;
+  --text-bright-accent: #ffb52e !important;
+  --essential-bright-accent: #ffb52e !important;
+  --background-bright-accent: #ffb52e !important;
+  --decorative-base: #ffb52e !important;
+}
+
+/* Playlist/card Play buttons: warm amber surface, dark glyph. */
+#main button[data-testid="play-button"],
+#main button[data-encore-id="buttonPrimary"] {
+  --background-base: #ffb52e !important;
+  --background-highlight: #ffd166 !important;
+  --background-press: #d9a441 !important;
+  background-color: #ffb52e !important;
+  color: #17100b !important;
+}
+
+#main button[data-testid="play-button"]:hover,
+#main button[data-encore-id="buttonPrimary"]:hover {
+  background-color: #ffd166 !important;
+}
+
+#main button[data-testid="play-button"] svg,
+#main button[data-testid="play-button"] svg *,
+#main button[data-encore-id="buttonPrimary"] svg,
+#main button[data-encore-id="buttonPrimary"] svg * {
+  color: #17100b !important;
+  fill: currentColor !important;
+}
+
+/* Current-track equalizer: recolor only, never change track-row layout. */
+.main-trackList-playingIcon,
+.view-homeShortcutsGrid-equaliser,
+.main-devicePicker-nowPlayingActiveIcon {
+  background: #ffb52e !important;
+  color: #ffb52e !important;
+}
+
+img[src*="equaliser"],
+img[src*="equalizer"] {
+  filter:
+    brightness(0)
+    saturate(100%)
+    invert(79%)
+    sepia(63%)
+    saturate(1317%)
+    hue-rotate(335deg)
+    brightness(103%)
+    contrast(102%) !important;
+}
+
+/* Compact/sticky playlist and album headers always stay JazzClub walnut. */
+.main-topBar-background,
+.main-topBar-container,
+.main-topBar-topbarContent,
+.main-topBar-topbarContentFadeIn,
+.main-entityHeader-topbarContent,
+.main-entityHeader-topbarContentFadeIn {
+  background-color: #17100b !important;
+  background-image:
+    radial-gradient(
+      circle at 12% 18%,
+      rgba(255, 181, 46, .075),
+      transparent 34%
+    ),
+    linear-gradient(
+      180deg,
+      #21150c 0%,
+      #17100b 54%,
+      #100b08 100%
+    ) !important;
+}
+
+.main-entityHeader-background,
+.main-entityHeader-backgroundColor,
+.main-entityHeader-overlay,
+.main-actionBarBackground-background {
+  background-color: #17100b !important;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(42, 26, 16, .76) 0%,
+      rgba(23, 16, 11, .70) 42%,
+      rgba(13, 9, 6, .96) 100%
+    ) !important;
+}
+
+/* Back/forward navigation share one compact hi-fi pill. */
+.main-globalNav-historyButtons {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0 !important;
+  padding: 3px !important;
+  border: 1px solid rgba(255, 181, 46, .28) !important;
+  border-radius: 999px !important;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(42, 27, 16, .96),
+      rgba(18, 13, 9, .98)
+    ) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .025),
+    0 4px 12px rgba(0, 0, 0, .34) !important;
+}
+
+.main-globalNav-historyButtons > button {
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.main-globalNav-historyButtons > button:hover {
+  background: rgba(255, 181, 46, .10) !important;
+}
+
+/* Approved bottom-player Play/Pause knob:
+   dark vinyl-like face, amber ring, warm-white glyph. */
+[data-testid="control-button-playpause"],
+[data-testid="control-button-playpause"] > *,
+[data-testid="control-button-playpause"] span,
+[data-testid="control-button-playpause"] div {
+  background:
+    radial-gradient(
+      circle at 36% 28%,
+      #2a241f 0%,
+      #151210 40%,
+      #080706 72%,
+      #020202 100%
+    ) !important;
+}
+
+[data-testid="control-button-playpause"] {
+  border: 1px solid #ffb52e !important;
+  box-shadow:
+    inset 0 0 0 2px rgba(255,255,255,.025),
+    0 0 0 2px rgba(255,181,46,.10),
+    0 0 14px rgba(255,181,46,.14),
+    0 4px 9px rgba(0,0,0,.60) !important;
+  color: #fff4d6 !important;
+}
+
+[data-testid="control-button-playpause"]:hover {
+  border-color: #ffd166 !important;
+  color: #fff4d6 !important;
+}
+
+[data-testid="control-button-playpause"] svg,
+[data-testid="control-button-playpause"] svg *,
+[data-testid="control-button-playpause"] path,
+[data-testid="control-button-playpause"] polygon {
+  color: #fff4d6 !important;
+  fill: #fff4d6 !important;
+  stroke: none !important;
+  background: transparent !important;
+}
+
+/* Full App Display / Lyrics Plus integration (built into Spicetify; not vendored). */
+body.fad-activated #full-app-display {
+  background-color: #0d0906 !important;
+  color: #fff4d6 !important;
+}
+
+body.fad-activated #fad-background {
+  opacity: .82 !important;
+  filter:
+    sepia(.16)
+    saturate(.86)
+    brightness(.58)
+    contrast(1.05) !important;
+}
+
+body.fad-activated #fad-title,
+body.fad-activated #fad-artist {
+  color: #fff4d6 !important;
+}
+
+body.fad-activated #fad-album,
+body.fad-activated #fad-release-date,
+body.fad-activated #fad-elapsed,
+body.fad-activated #fad-duration {
+  color: #cdb98e !important;
+}
+
+body.fad-activated #fad-progress {
+  background-color: rgba(205, 185, 142, .22) !important;
+}
+
+body.fad-activated #fad-progress-inner,
+body.fad-activated #fad-thumb {
+  background-color: #ffb52e !important;
+  box-shadow: none !important;
+}
+
+body.fad-activated #fad-controls > button {
+  color: #cdb98e !important;
+}
+
+body.fad-activated #fad-controls > button:hover {
+  color: #ffd166 !important;
+}
+
+body.fad-activated #fad-controls > button > svg {
+  fill: currentColor !important;
+}
+
+body.fad-activated #fad-lyrics-plus-container {
+  --lyrics-color-active: #fff4d6 !important;
+  --lyrics-color-inactive: rgba(205, 185, 142, .34) !important;
+}
+
+/* ===== JAZZCLUB RELEASE PATCH END ===== */
