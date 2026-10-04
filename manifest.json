@@ -1,9 +1,9 @@
 {
   "name": "JazzClub",
-  "version": "1.3.0",
-  "description": "Marketplace revision 4: JazzClub with synchronized Spotify Spice vinyl and fixed walnut playlist/album headers.",
+  "version": "1.4.0",
+  "description": "Marketplace revision 5: JazzClub with synchronized Spotify Spice vinyl and corrected playlist/album cover spacing.",
   "preview": "preview.svg",
-  "usercss": "JazzClub/marketplace-v4.css",
+  "usercss": "JazzClub/marketplace-v5.css",
   "schemes": "JazzClub/color.ini",
   "readme": "README.md",
   "authors": [
@@ -20,6 +20,6 @@
     "hifi"
   ],
   "include": [
-    "https://raw.githubusercontent.com/maccione2006/Jazz-Spicefy/975f8e4166af9b95c74644cd0ea7d5c00c78e870/Extensions/vinyl-marketplace-v4.js"
+    "https://raw.githubusercontent.com/maccione2006/Jazz-Spicefy/44289f6b8f9d42fc3b45d0ae143b925639c51477/Extensions/vinyl-marketplace-v5.js"
   ]
 }
