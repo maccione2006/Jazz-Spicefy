@@ -31,19 +31,26 @@ JazzClub deliberately leaves Spotify's track-row layout and visibility untouched
 
 ## Marketplace installation
 
-JazzClub Marketplace now uses the **official Spotify Spice Vinyl engine** by
-Grason Chan for both records. `JazzClub/marketplace.js` loads Spotify Spice's
-official `deploy/extensions/vinyl.js` build and defaults colored vinyl to ON
-for first-time JazzClub users. `JazzClub/marketplace.css` maps the same
-Spotify Spice variables, grooves, playback state and album-derived color onto:
+JazzClub Marketplace now loads the **complete official Spotify Spice Vinyl
+extension build** from Grason Chan's project. This includes all Vinyl features:
 
-- the mini vinyl in the bottom player
-- the large vinyl in the Now Playing View
+- playback-aware rotation
+- Vinyl settings menu
+- rotation on/off
+- adjustable RPM
+- Ambient / LP / EP / SP speed presets
+- album-derived colored vinyl
+- per-album color cache
+- Full App Display vinyl support
+- Canvas guidance from Spotify Spice
 
-The large-vinyl CSS is a compatibility mapping for current Spotify's
-`track-visual-enhancement > cover-drop-target > img` markup, because the
-current Spotify Spice master source still targets the older `.cover-art`
-class there.
+The bundled upstream JavaScript is kept intact. JazzClub adds only a tiny
+first-run settings prelude (colored vinyl ON for JazzClub) and CSS selector
+compatibility for current Spotify's Now Playing View, whose artwork wrapper no
+longer uses Spotify Spice's older `.cover-art` class.
+
+Both the mini player record and the large Now Playing View record use the same
+Spotify Spice variables and playback/color engine.
 
 The standalone installers below use `JazzClub/user.css` and additionally enable the bundled
 Spotify Spice Vinyl extension, Full App Display and Lyrics Plus.

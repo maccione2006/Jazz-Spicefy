@@ -45,3 +45,16 @@ including `--vinyl-shine`, `--vinyl-groove`, `--vinyl-base`,
 The large Now Playing View adapter changes selectors only; the vinyl visual
 formula, playback state, RPM/settings behavior, and album-color engine remain
 from Spotify Spice.
+
+## Full Vinyl feature set
+
+JazzClub's Marketplace and standalone packages now use the complete official
+Spotify Spice Vinyl deploy build. No Vinyl features are reimplemented or
+removed. JazzClub adds only:
+
+1. first-run defaults enabling rotation and colored vinyl;
+2. CSS selector compatibility for current Spotify's Now Playing View markup.
+
+Spotify Spice remains the source of the Vinyl settings UI, playback state,
+RPM behavior, album-color extraction/cache, gradients, grooves and Full App
+Display Vinyl behavior.
