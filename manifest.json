@@ -1,6 +1,6 @@
 {
   "name": "JazzClub",
-  "description": "Late-night jazz club and vintage hi-fi theme with dark walnut surfaces, vivid amber accents, cream typography and a Marketplace-safe CSS-only vinyl treatment.",
+  "description": "Late-night jazz club and vintage hi-fi theme with dark walnut surfaces, vivid amber accents, cream typography, and album-colored spinning vinyl in both the player and Now Playing panel.",
   "preview": "preview.svg",
   "usercss": "JazzClub/marketplace.css",
   "schemes": "JazzClub/color.ini",
@@ -17,5 +17,8 @@
     "vinyl",
     "amber",
     "hifi"
+  ],
+  "include": [
+    "https://raw.githubusercontent.com/maccione2006/Jazz-Spicefy/9f92ad5b5d0c314a2526b7df2f45135b879ecbd3/JazzClub/marketplace.js"
   ]
 }
