@@ -32,22 +32,27 @@ JazzClub deliberately leaves Spotify's track-row layout and visibility untouched
 ## Marketplace installation
 
 JazzClub Marketplace loads the **complete official Spotify Spice Vinyl deploy
-build** from Grason Chan. Nothing from the Vinyl feature set is replaced:
-Spotify Spice still owns the settings UI, RPM control, rotation state,
-album-color extraction/cache, colored vinyl, gradients/grooves and Full App
-Display support.
+build** from Grason Chan.
 
-Current Spotify removed the historical `.cover-art` and `.cover-art-image`
-class names that Spotify Spice still targets in the large Now Playing View.
-JazzClub therefore adds a tiny compatibility bridge that restores those two
-class names on the current NPV artwork node. Once bound, the **original Spotify
-Spice CSS itself draws the large vinyl**.
+The large Now Playing vinyl is no longer redrawn by JazzClub CSS. Current
+Spotify places the NPV outside `#main`, while Spotify Spice's current
+stylesheet still scopes the large record to
+`#main [data-testid='track-visual-enhancement']`.
 
-The mini player uses Spotify Spice's own public Vinyl variables because upstream
-Spotify Spice does not provide a mini-player selector.
+JazzClub's compatibility bridge now finds the stylesheet that Spotify Spice
+itself injects at runtime, clones that exact stylesheet, and changes **only**
+that obsolete scope so the same original Vinyl rules also apply inside the
+current right-sidebar NPV. It also restores the historical `.cover-art` and
+`.cover-art-image` class names that Spotify Spice expects.
 
-The standalone installers below use `JazzClub/user.css` and additionally enable the bundled
-Spotify Spice Vinyl extension, Full App Display and Lyrics Plus.
+Therefore the large record's grooves, shine, 1.5× disc geometry, shadows,
+rotation, RPM, playback state and album-derived color are all Spotify Spice's
+own code.
+
+The mini-player record uses the same Spotify Spice public Vinyl variables and
+state because upstream Spotify Spice does not include a mini-player selector.
+
+The standalone installers additionally enable Full App Display and Lyrics Plus.
 
 ## Quick install
 

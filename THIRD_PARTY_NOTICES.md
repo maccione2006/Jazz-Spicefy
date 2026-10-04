@@ -67,3 +67,13 @@ Current Spotify can omit those class names. JazzClub's Marketplace bundle adds
 only those semantic classes back to the current artwork host/image at runtime.
 The large record is then rendered by Spotify Spice's original CSS rather than a
 JazzClub reimplementation.
+
+## Runtime stylesheet scope bridge
+
+For the current Spotify right-sidebar NPV, JazzClub no longer reimplements the
+large record CSS. The Marketplace bundle locates the style element injected by
+the official Spotify Spice Vinyl build and clones its exact CSS text, replacing
+only the obsolete `#main [data-testid='track-visual-enhancement']` scope with
+a selector that also includes the current right-sidebar NPV. This preserves the
+upstream Vinyl visual system verbatim while making it reachable in current
+Spotify.
