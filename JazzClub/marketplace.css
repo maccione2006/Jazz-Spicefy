@@ -1148,11 +1148,11 @@ video[src^="blob:"] {
 
 
 /* ===== SPOTIFY SPICE VINYL ADAPTER BEGIN =====
-   ALL vinyl state, color extraction, settings, RPM, rotation and visual
-   variables come from Grason Chan's spotify-spice Vinyl extension.
-   This block only maps its .cover-art CSS recipe to current Spotify DOM. */
+   The complete Spotify Spice Vinyl extension is loaded unchanged.
+   JazzClub only maps its original .cover-art recipe to current Spotify DOM. */
 
-/* Small player — same Spotify Spice gradients/state on JazzClub's proven host. */
+/* Small player: keep the proven JazzClub mini-host, but use Spotify Spice's
+   own gradients, RPM duration and play/pause state. */
 [data-testid="now-playing-bar"] [data-testid="cover-art-button"] > div:has(img),
 .Root__now-playing-bar [data-testid="cover-art-button"] > div:has(img),
 [data-testid="now-playing-bar"] .jazzclub-vinyl-host,
@@ -1170,15 +1170,10 @@ video[src^="blob:"] {
     0 0 2px #000 !important;
 }
 
-/* Current NPV static artwork hierarchy confirmed by current themes:
-   [track-visual-enhancement] [cover-drop-target] > wrapper > img
-   Spotify Spice expects that wrapper to be .cover-art. */
+/* Current NPV parent must allow the record to extend beyond the centre label. */
 #main [data-testid="track-visual-enhancement"],
 .Root__right-sidebar [data-testid="track-visual-enhancement"],
-[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] {
-  overflow: visible !important;
-}
-
+[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"],
 #main [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"],
 .Root__right-sidebar [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"],
 [data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] {
@@ -1188,10 +1183,17 @@ video[src^="blob:"] {
   box-shadow: none !important;
 }
 
-/* This child wrapper is the modern equivalent of spotify-spice .cover-art. */
-#main [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(img),
-.Root__right-sidebar [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(img),
-[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(img) {
+/* -------------------------------------------------------------------------
+   LARGE VINYL — DIRECT-IMG DOM
+   Confirmed on current Spotify:
+   track-visual-enhancement -> cover-drop-target -> img
+
+   In this structure cover-drop-target itself becomes Spotify Spice's
+   historical .cover-art element.
+   ------------------------------------------------------------------------- */
+#main [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"]:has(> img),
+.Root__right-sidebar [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"]:has(> img),
+[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"]:has(> img) {
   margin: calc(17% + 5px) !important;
   position: relative !important;
   overflow: visible !important;
@@ -1207,13 +1209,12 @@ video[src^="blob:"] {
     var(--vinyl-play-state, paused) !important;
 }
 
-/* Exact spotify-spice vinyl body/shadow recipe. */
-#main [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(img)::before,
-#main [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(img)::after,
-.Root__right-sidebar [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(img)::before,
-.Root__right-sidebar [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(img)::after,
-[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(img)::before,
-[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(img)::after {
+#main [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"]:has(> img)::before,
+#main [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"]:has(> img)::after,
+.Root__right-sidebar [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"]:has(> img)::before,
+.Root__right-sidebar [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"]:has(> img)::after,
+[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"]:has(> img)::before,
+[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"]:has(> img)::after {
   width: 100%;
   height: 100%;
   display: block !important;
@@ -1225,9 +1226,9 @@ video[src^="blob:"] {
   pointer-events: none;
 }
 
-#main [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(img)::before,
-.Root__right-sidebar [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(img)::before,
-[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(img)::before {
+#main [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"]:has(> img)::before,
+.Root__right-sidebar [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"]:has(> img)::before,
+[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"]:has(> img)::before {
   background:
     var(--vinyl-shine),
     var(--vinyl-groove),
@@ -1240,18 +1241,17 @@ video[src^="blob:"] {
   z-index: 0;
 }
 
-#main [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(img)::after,
-.Root__right-sidebar [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(img)::after,
-[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(img)::after {
+#main [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"]:has(> img)::after,
+.Root__right-sidebar [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"]:has(> img)::after,
+[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"]:has(> img)::after {
   box-shadow:
     0 0 10px var(--vinyl-inner-shadow-inset, rgb(3 3 3 / 50%)) inset !important;
   z-index: 4;
 }
 
-/* Exact spotify-spice label treatment. */
-#main [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(img) img,
-.Root__right-sidebar [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(img) img,
-[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(img) img {
+#main [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"]:has(> img) > img,
+.Root__right-sidebar [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"]:has(> img) > img,
+[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"]:has(> img) > img {
   display: block !important;
   width: 100% !important;
   height: 100% !important;
@@ -1272,8 +1272,96 @@ video[src^="blob:"] {
   z-index: 2 !important;
 }
 
-/* Spotify Spice itself tells users to turn Canvas off to keep Vinyl in NPV.
-   JazzClub hides Canvas only in this panel so the static vinyl is shown. */
+/* -------------------------------------------------------------------------
+   LARGE VINYL — WRAPPED-IMG FALLBACK
+   Some Spotify builds expose:
+   track-visual-enhancement -> cover-drop-target -> wrapper -> img
+
+   Here that wrapper becomes Spotify Spice's historical .cover-art element.
+   ------------------------------------------------------------------------- */
+#main [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(> img),
+.Root__right-sidebar [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(> img),
+[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(> img) {
+  margin: calc(17% + 5px) !important;
+  position: relative !important;
+  overflow: visible !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  isolation: isolate !important;
+  transform-origin: 50% 50% !important;
+  animation:
+    rotate-vinyl var(--vinyl-duration, 12s) linear infinite
+    var(--vinyl-play-state, paused) !important;
+}
+
+#main [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(> img)::before,
+#main [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(> img)::after,
+.Root__right-sidebar [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(> img)::before,
+.Root__right-sidebar [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(> img)::after,
+[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(> img)::before,
+[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(> img)::after {
+  width: 100%;
+  height: 100%;
+  display: block !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+#main [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(> img)::before,
+.Root__right-sidebar [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(> img)::before,
+[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(> img)::before {
+  background:
+    var(--vinyl-shine),
+    var(--vinyl-groove),
+    var(--vinyl-base) !important;
+  box-shadow:
+    0 0 5px var(--vinyl-shadow-inset, #0a0a0a) inset,
+    0 0 2px #000 !important;
+  transform: scale(1.5);
+  filter: drop-shadow(0 0 2px #000);
+  z-index: 0;
+}
+
+#main [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(> img)::after,
+.Root__right-sidebar [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(> img)::after,
+[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(> img)::after {
+  box-shadow:
+    0 0 10px var(--vinyl-inner-shadow-inset, rgb(3 3 3 / 50%)) inset !important;
+  z-index: 4;
+}
+
+#main [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(> img) > img,
+.Root__right-sidebar [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(> img) > img,
+[data-testid="NPV_Panel_OpenDiv"] [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(> img) > img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: none !important;
+  max-height: none !important;
+  position: relative !important;
+  inset: auto !important;
+  transform: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  object-fit: cover !important;
+  background-color: #0f0f0f !important;
+  border-radius: 50% !important;
+  box-shadow:
+    0 0 10px var(--vinyl-inner-shadow-inset, rgb(3 3 3 / 50%)) inset !important;
+  z-index: 2 !important;
+}
+
+/* Spotify Spice explicitly says Canvas should be disabled for Vinyl in NPV.
+   Hide only the NPV Canvas, never video elsewhere in Spotify. */
 .Root__right-sidebar:has([data-testid="track-visual-enhancement"]) .canvasVideoContainerNPV,
 .Root__right-sidebar:has([data-testid="track-visual-enhancement"]) video[src^="blob:"],
 [data-testid="NPV_Panel_OpenDiv"]:has([data-testid="track-visual-enhancement"]) .canvasVideoContainerNPV,
@@ -1281,7 +1369,7 @@ video[src^="blob:"] {
   display: none !important;
 }
 
-/* Keep approved Play/Pause knob glyph white. */
+/* Keep approved Play/Pause glyph white. */
 [data-testid="control-button-playpause"],
 [data-testid="control-button-playpause"] * {
   --text-base: #fff4d6 !important;
@@ -1296,15 +1384,6 @@ video[src^="blob:"] {
   color: #fff4d6 !important;
   fill: #fff4d6 !important;
   stroke: #fff4d6 !important;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  [data-testid="now-playing-bar"] [data-testid="cover-art-button"] > div:has(img),
-  .Root__now-playing-bar [data-testid="cover-art-button"] > div:has(img),
-  #main [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(img),
-  .Root__right-sidebar [data-testid="track-visual-enhancement"] [data-testid="cover-drop-target"] > *:has(img) {
-    animation: none !important;
-  }
 }
 
 /* ===== SPOTIFY SPICE VINYL ADAPTER END ===== */
