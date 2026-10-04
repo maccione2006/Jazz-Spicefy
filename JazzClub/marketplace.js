@@ -9,6 +9,7 @@
 
   const GLOBAL_KEY = "__jazzclubSpotifySpiceVinylLoader";
   const SETTINGS_KEY = "vinyl:settings";
+  const MIGRATION_KEY = "jazzclub:spotify-spice-vinyl:v2";
   const SCRIPT_ID = "jazzclub-spotify-spice-vinyl";
   const UPSTREAM =
     "https://cdn.jsdelivr.net/gh/grasonchan/spotify-spice@deploy/extensions/vinyl.js";
@@ -24,20 +25,26 @@
     };
 
     const raw = localStorage.getItem(SETTINGS_KEY);
-    if (!raw) {
-      localStorage.setItem(SETTINGS_KEY, JSON.stringify(defaults));
-    } else {
-      let current = {};
+    let current = {};
+    if (raw) {
       try {
         current = JSON.parse(raw) || {};
       } catch {}
-
-      // Preserve explicit user choices. Only fill settings that do not exist.
-      localStorage.setItem(
-        SETTINGS_KEY,
-        JSON.stringify({ ...defaults, ...current })
-      );
     }
+
+    const migrated = localStorage.getItem(MIGRATION_KEY) === "1";
+    const next = { ...defaults, ...current };
+
+    // Spotify Spice defaults colored vinyl to OFF. JazzClub's intended design
+    // uses album-derived color, so enable it once for this migration. Users can
+    // change it afterwards in Vinyl settings and their choice will persist.
+    if (!migrated) {
+      next.coloredEnabled = true;
+      next.rotationEnabled = true;
+      localStorage.setItem(MIGRATION_KEY, "1");
+    }
+
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(next));
   } catch (error) {
     console.warn("[JazzClub] Could not initialize Spotify Spice Vinyl settings.", error);
   }
