@@ -31,11 +31,12 @@ JazzClub deliberately leaves Spotify's track-row layout and visibility untouched
 
 ## Marketplace installation
 
-JazzClub is published through the Spicetify Marketplace as a **pure CSS + color-scheme theme package**.
-Marketplace uses `JazzClub/marketplace.css`, a dedicated self-contained build that does not
-depend on `theme.js` or external JavaScript. This keeps the Marketplace install stable while
-preserving the walnut/amber UI, themed Marketplace page, right Now Playing panel and CSS-only
-mini-vinyl appearance.
+JazzClub is published through the Spicetify Marketplace with a dedicated
+`JazzClub/marketplace.css` build plus a very small event-driven
+`JazzClub/marketplace.js` helper. The helper does only two things: it exposes
+play/pause state and Spotify's extracted album color so both the small and large
+vinyl can rotate and change color with the current album. It does not use DOM
+polling, MutationObserver or Track Peek.
 
 The standalone installers below use `JazzClub/user.css` and additionally enable the bundled
 Vinyl extension, Full App Display and Lyrics Plus.
