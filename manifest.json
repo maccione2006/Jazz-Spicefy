@@ -1,0 +1,24 @@
+{
+  "name": "JazzClub",
+  "description": "Late-night jazz club and vintage hi-fi theme with dark walnut surfaces, vivid amber accents, cream typography and vinyl-inspired playback.",
+  "preview": "preview.svg",
+  "usercss": "JazzClub/user.css",
+  "schemes": "JazzClub/color.ini",
+  "include": [
+    "https://cdn.jsdelivr.net/gh/maccione2006/Jazz-Spicefy@main/Extensions/vinyl.js"
+  ],
+  "readme": "README.md",
+  "authors": [
+    {
+      "name": "maccione2006",
+      "url": "https://github.com/maccione2006"
+    }
+  ],
+  "tags": [
+    "dark",
+    "jazz",
+    "vinyl",
+    "amber",
+    "hifi"
+  ]
+}

@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#17100b"/>
+      <stop offset="1" stop-color="#0d0906"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#21150c"/>
+      <stop offset="1" stop-color="#120d09"/>
+    </linearGradient>
+    <radialGradient id="vinyl">
+      <stop offset="0" stop-color="#21150c"/>
+      <stop offset="0.38" stop-color="#090807"/>
+      <stop offset="1" stop-color="#030303"/>
+    </radialGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#000" flood-opacity=".55"/>
+    </filter>
+    <pattern id="grooves" width="12" height="12" patternUnits="userSpaceOnUse">
+      <circle cx="6" cy="6" r="5" fill="none" stroke="#2b241f" stroke-width=".6" opacity=".45"/>
+    </pattern>
+  </defs>
+
+  <rect width="1280" height="720" fill="#070504"/>
+  <rect x="24" y="24" width="1232" height="672" rx="26" fill="url(#bg)" stroke="#d9a441" stroke-opacity=".22"/>
+
+  <!-- Sidebar -->
+  <rect x="42" y="42" width="226" height="594" rx="18" fill="#120d09" stroke="#d9a441" stroke-opacity=".13"/>
+  <text x="70" y="94" fill="#fff4d6" font-family="Arial, sans-serif" font-size="24" font-weight="700">La tua libreria</text>
+  <rect x="64" y="122" width="76" height="34" rx="17" fill="#2a1b10"/>
+  <text x="83" y="145" fill="#fff4d6" font-family="Arial, sans-serif" font-size="15">Playlist</text>
+  <g font-family="Arial, sans-serif" font-size="18">
+    <rect x="62" y="185" width="184" height="58" rx="10" fill="#2a241f"/>
+    <circle cx="91" cy="214" r="18" fill="#ffb52e"/>
+    <text x="122" y="209" fill="#fff4d6" font-weight="700">Jazz Nights</text>
+    <text x="122" y="230" fill="#cdb98e" font-size="13">Playlist</text>
+
+    <circle cx="91" cy="284" r="18" fill="#5c4930"/>
+    <text x="122" y="279" fill="#fff4d6">Late Night</text>
+    <text x="122" y="300" fill="#cdb98e" font-size="13">Playlist</text>
+
+    <circle cx="91" cy="354" r="18" fill="#8c7754"/>
+    <text x="122" y="349" fill="#fff4d6">Vinyl Room</text>
+    <text x="122" y="370" fill="#cdb98e" font-size="13">Playlist</text>
+  </g>
+
+  <!-- Main content -->
+  <rect x="286" y="42" width="640" height="594" rx="18" fill="#0d0906"/>
+  <rect x="304" y="60" width="604" height="100" rx="14" fill="url(#panel)" stroke="#ffb52e" stroke-opacity=".16"/>
+  <circle cx="354" cy="110" r="30" fill="#ffb52e"/>
+  <path d="M346 94 L370 110 L346 126 Z" fill="#17100b"/>
+  <text x="402" y="122" fill="#fff4d6" font-family="Arial, sans-serif" font-size="34" font-weight="700">JAZZ CLUB</text>
+  <text x="404" y="146" fill="#cdb98e" font-family="Arial, sans-serif" font-size="14">Late-night hi-fi listening room</text>
+
+  <!-- Table -->
+  <g font-family="Arial, sans-serif">
+    <text x="330" y="202" fill="#cdb98e" font-size="15">#</text>
+    <text x="370" y="202" fill="#cdb98e" font-size="15">Titolo</text>
+    <text x="680" y="202" fill="#cdb98e" font-size="15">Album</text>
+    <line x1="324" y1="218" x2="888" y2="218" stroke="#d9a441" stroke-opacity=".14"/>
+
+    <g fill="#fff4d6" font-size="18">
+      <text x="330" y="265">1</text><text x="370" y="265">Midnight Blue</text><text x="680" y="265" fill="#cdb98e">After Hours</text>
+      <text x="330" y="325">2</text><text x="370" y="325">Autumn Leaves</text><text x="680" y="325" fill="#cdb98e">Blue Note</text>
+      <text x="330" y="385">3</text><text x="370" y="385">Night Train</text><text x="680" y="385" fill="#cdb98e">Vintage Sessions</text>
+    </g>
+
+    <rect x="316" y="408" width="580" height="64" rx="9" fill="#4a4034"/>
+    <rect x="330" y="421" width="40" height="40" rx="6" fill="#ffb52e" fill-opacity=".35"/>
+    <text x="386" y="438" fill="#fff4d6" font-size="18" font-weight="700">Take Five</text>
+    <text x="386" y="458" fill="#cdb98e" font-size="14">The Dave Brubeck Quartet</text>
+    <circle cx="842" cy="440" r="12" fill="#ffb52e"/>
+    <path d="M836 440 l4 4 l8 -9" fill="none" stroke="#17100b" stroke-width="3"/>
+
+    <g fill="#fff4d6" font-size="18">
+      <text x="330" y="525">5</text><text x="370" y="525">Round Midnight</text><text x="680" y="525" fill="#cdb98e">Monk</text>
+      <text x="330" y="585">6</text><text x="370" y="585">So What</text><text x="680" y="585" fill="#cdb98e">Kind of Blue</text>
+    </g>
+  </g>
+
+  <!-- Now Playing -->
+  <rect x="944" y="42" width="294" height="594" rx="18" fill="#0b0806" stroke="#d9a441" stroke-opacity=".10"/>
+  <text x="970" y="86" fill="#fff4d6" font-family="Arial, sans-serif" font-size="18" font-weight="700">In riproduzione</text>
+  <circle cx="1091" cy="274" r="116" fill="url(#vinyl)" filter="url(#shadow)"/>
+  <circle cx="1091" cy="274" r="110" fill="url(#grooves)" opacity=".55"/>
+  <circle cx="1091" cy="274" r="55" fill="#ffb52e"/>
+  <circle cx="1091" cy="274" r="8" fill="#050403" stroke="#fff4d6" stroke-opacity=".25"/>
+  <text x="970" y="430" fill="#fff4d6" font-family="Arial, sans-serif" font-size="26" font-weight="700">Take Five</text>
+  <text x="970" y="458" fill="#cdb98e" font-family="Arial, sans-serif" font-size="16">The Dave Brubeck Quartet</text>
+  <rect x="970" y="500" width="242" height="1" fill="#d9a441" fill-opacity=".22"/>
+  <text x="970" y="548" fill="#ffb52e" font-family="Arial, sans-serif" font-size="14">Vinyl • Amber • Walnut</text>
+
+  <!-- Bottom player -->
+  <rect x="286" y="650" width="952" height="28" rx="14" fill="#120d09" stroke="#ffb52e" stroke-opacity=".22"/>
+  <circle cx="762" cy="664" r="20" fill="#080706" stroke="#ffb52e"/>
+  <path d="M756 653 L773 664 L756 675 Z" fill="#fff4d6"/>
+  <rect x="480" y="662" width="244" height="4" rx="2" fill="#5c4930"/>
+  <rect x="480" y="662" width="112" height="4" rx="2" fill="#ffb52e"/>
+  <rect x="798" y="662" width="244" height="4" rx="2" fill="#5c4930"/>
+  <rect x="798" y="662" width="72" height="4" rx="2" fill="#d9a441"/>
+
+  <text x="48" y="676" fill="#cdb98e" font-family="Arial, sans-serif" font-size="12">JAZZCLUB • SPICETIFY THEME</text>
+</svg>
