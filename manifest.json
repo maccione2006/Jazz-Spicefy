@@ -1,9 +1,9 @@
 {
   "name": "JazzClub",
-  "version": "1.7.0",
-  "description": "Marketplace revision 8: JazzClub with synchronized Spotify Spice vinyl and the playlist header spacer removed.",
+  "version": "1.8.0",
+  "description": "Marketplace revision 9: JazzClub with synchronized Spotify Spice vinyl and a live-DOM fix for playlist cover cropping.",
   "preview": "preview.svg",
-  "usercss": "JazzClub/marketplace-v8.css",
+  "usercss": "JazzClub/marketplace-v9.css",
   "schemes": "JazzClub/color.ini",
   "readme": "README.md",
   "authors": [
