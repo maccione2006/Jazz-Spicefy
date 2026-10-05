@@ -1,9 +1,9 @@
 {
   "name": "JazzClub",
-  "version": "1.13.0",
-  "description": "Marketplace revision 14: JazzClub removes the duplicate legacy large-vinyl renderer so the Now Playing record is drawn only by Spotify Spice.",
+  "version": "1.14.0",
+  "description": "Marketplace revision 15: JazzClub keeps a single Spotify Spice vinyl layer and slightly scales down both large and mini artwork labels without introducing a second dark disc.",
   "preview": "preview.svg",
-  "usercss": "JazzClub/marketplace-v14.css",
+  "usercss": "JazzClub/marketplace-v15.css",
   "schemes": "JazzClub/color.ini",
   "readme": "README.md",
   "authors": [
