@@ -1,9 +1,9 @@
 {
   "name": "JazzClub",
-  "version": "1.10.0",
-  "description": "Marketplace revision 11: JazzClub with synchronized Spotify Spice vinyl and safer full-cover artwork fitting in both large and mini records.",
+  "version": "1.11.0",
+  "description": "Marketplace revision 12: JazzClub with synchronized Spotify Spice vinyl and corrected artwork scaling that preserves record geometry.",
   "preview": "preview.svg",
-  "usercss": "JazzClub/marketplace-v11.css",
+  "usercss": "JazzClub/marketplace-v12.css",
   "schemes": "JazzClub/color.ini",
   "readme": "README.md",
   "authors": [
@@ -20,6 +20,6 @@
     "hifi"
   ],
   "include": [
-    "https://raw.githubusercontent.com/maccione2006/Jazz-Spicefy/8574d85b211ce5ac82d2e5ade262769336bab80f/Extensions/vinyl-marketplace-v7.js"
+    "https://raw.githubusercontent.com/maccione2006/Jazz-Spicefy/b157dfab69eea4fa8b8cb17a8195c809b6d924fe/Extensions/vinyl-marketplace-v12.js"
   ]
 }
