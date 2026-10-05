@@ -1,9 +1,9 @@
 {
   "name": "JazzClub",
-  "version": "1.9.0",
-  "description": "Marketplace revision 10: JazzClub with synchronized Spotify Spice vinyl, exact playlist-image handling, and the empty entity topbar strip removed.",
+  "version": "1.10.0",
+  "description": "Marketplace revision 11: JazzClub with synchronized Spotify Spice vinyl and safer full-cover artwork fitting in both large and mini records.",
   "preview": "preview.svg",
-  "usercss": "JazzClub/marketplace-v10.css",
+  "usercss": "JazzClub/marketplace-v11.css",
   "schemes": "JazzClub/color.ini",
   "readme": "README.md",
   "authors": [
