@@ -1,9 +1,9 @@
 {
   "name": "JazzClub",
-  "version": "1.5.0",
-  "description": "Marketplace revision 6: JazzClub with synchronized Spotify Spice vinyl and playlist/album covers kept fully visible in hero headers.",
+  "version": "1.6.0",
+  "description": "Marketplace revision 7: JazzClub with synchronized Spotify Spice vinyl and no opaque entity topbar overlay clipping playlist/album covers.",
   "preview": "preview.svg",
-  "usercss": "JazzClub/marketplace-v6.css",
+  "usercss": "JazzClub/marketplace-v7.css",
   "schemes": "JazzClub/color.ini",
   "readme": "README.md",
   "authors": [
@@ -20,6 +20,6 @@
     "hifi"
   ],
   "include": [
-    "https://raw.githubusercontent.com/maccione2006/Jazz-Spicefy/9b9647082825c7e09df260cbd113717adbbd5b13/Extensions/vinyl-marketplace-v6.js"
+    "https://raw.githubusercontent.com/maccione2006/Jazz-Spicefy/8574d85b211ce5ac82d2e5ade262769336bab80f/Extensions/vinyl-marketplace-v7.js"
   ]
 }
