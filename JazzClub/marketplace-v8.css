@@ -1,0 +1,1338 @@
+/* JazzClub — premium late-night hi-fi listening room */
+:root {
+  --jazzclub-border: rgba(var(--spice-rgb-jazzclub-gold), .18);
+  --jazzclub-amber-soft: rgba(var(--spice-rgb-jazzclub-amber), .12);
+  --jazzclub-radius: 8px;
+  --jazzclub-transition: 180ms ease;
+}
+
+html, body, #main, .Root, .Root__main-view, .main-view-container,
+.main-view-container__scroll-node {
+  background: var(--spice-main) !important;
+  color: var(--spice-text);
+}
+
+.main-view-container,
+.main-view-container__scroll-node,
+.main-view-container__scroll-node-child {
+  background:
+    radial-gradient(circle at 78% -12%, rgba(var(--spice-rgb-jazzclub-amber), .055), transparent 32%),
+    linear-gradient(180deg, #120C08 0%, var(--spice-main) 34%, #0B0806 100%) !important;
+}
+
+.main-view-container::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,.12), transparent 45%, rgba(var(--spice-rgb-jazzclub-gold), .025));
+}
+
+/* Sidebar */
+.Root__nav-bar, nav[aria-label="Main"] {
+  background: linear-gradient(180deg, #1A120D 0%, var(--spice-sidebar) 55%, #100B08 100%) !important;
+  border-right: 1px solid var(--jazzclub-border);
+}
+
+.Root__nav-bar a, .Root__nav-bar button,
+nav[aria-label="Main"] a, nav[aria-label="Main"] button {
+  color: var(--spice-subtext) !important;
+  transition: color var(--jazzclub-transition), background var(--jazzclub-transition);
+}
+
+.Root__nav-bar a:hover, .Root__nav-bar button:hover,
+nav[aria-label="Main"] a:hover, nav[aria-label="Main"] button:hover {
+  color: var(--spice-text) !important;
+  background: var(--jazzclub-amber-soft) !important;
+}
+
+.Root__nav-bar [aria-current="page"],
+nav[aria-label="Main"] [aria-current="page"] {
+  color: var(--spice-text) !important;
+  background: linear-gradient(90deg, rgba(var(--spice-rgb-jazzclub-amber), .15), transparent) !important;
+  box-shadow: inset 2px 0 0 var(--spice-button);
+}
+
+/* Top bar / search */
+.main-view-container__mh-header,
+.main-view-container__mh-header-container,
+header[role="banner"] {
+  background: rgba(13,9,6,.88) !important;
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(var(--spice-rgb-jazzclub-gold), .10);
+}
+
+button[aria-label="Go back"], button[aria-label="Go forward"] {
+  background: #19110C !important;
+  color: var(--spice-text) !important;
+  border: 1px solid var(--jazzclub-border) !important;
+}
+
+[data-testid="search-input"], input[placeholder*="Search"] {
+  background: #21150C !important;
+  color: var(--spice-text) !important;
+  border: 1px solid rgba(var(--spice-rgb-jazzclub-gold), .20) !important;
+}
+
+[data-testid="search-input"]:focus-within, input[placeholder*="Search"]:focus {
+  border-color: rgba(var(--spice-rgb-jazzclub-amber), .62) !important;
+  box-shadow: 0 0 0 2px rgba(var(--spice-rgb-jazzclub-amber), .08) !important;
+}
+
+input::placeholder { color: var(--spice-subtext) !important; }
+
+body, button, input, textarea {
+  font-family: "Spotify Circular", "Helvetica Neue", Arial, sans-serif !important;
+}
+
+/* Cards */
+[data-testid="card"], .main-card-card {
+  background: linear-gradient(145deg, rgba(33,21,12,.92), rgba(20,13,9,.94)) !important;
+  border: 1px solid rgba(var(--spice-rgb-jazzclub-gold), .07);
+  border-radius: var(--jazzclub-radius);
+  transition: background var(--jazzclub-transition), border-color var(--jazzclub-transition), transform var(--jazzclub-transition);
+}
+
+[data-testid="card"]:hover, .main-card-card:hover {
+  background: #291A0F !important;
+  border-color: rgba(var(--spice-rgb-jazzclub-gold), .18);
+}
+
+[data-testid="card"] img, .main-cardImage-image { border-radius: 5px !important; }
+
+/* Entity headers */
+[data-testid="entity-header"], .main-entityHeader-container {
+  background: linear-gradient(180deg, rgba(28,18,11,.92), rgba(13,9,6,.94)) !important;
+}
+
+.main-entityHeader-backgroundColor, .main-entityHeader-overlay { opacity: .20 !important; }
+
+.main-entityHeader-title, .main-entityHeader-title h1 {
+  color: var(--spice-text) !important;
+  text-shadow: 0 2px 16px rgba(0,0,0,.7);
+}
+
+/* Track list: leave Spotify's native row layout and visibility untouched. */
+
+/* Buttons */
+button[data-encore-id="buttonPrimary"], button[data-encore-id="buttonSecondary"],
+[data-testid="play-button"] {
+  transition: transform var(--jazzclub-transition), filter var(--jazzclub-transition), background var(--jazzclub-transition);
+}
+
+button[data-encore-id="buttonPrimary"] {
+  background: var(--spice-button) !important;
+  color: #17100B !important;
+  box-shadow: 0 2px 12px rgba(var(--spice-rgb-jazzclub-amber), .12);
+}
+
+button[data-encore-id="buttonPrimary"]:hover {
+  background: var(--spice-button-active) !important;
+  filter: brightness(1.04);
+}
+
+button[data-encore-id="buttonSecondary"] {
+  background: rgba(255,255,255,.035) !important;
+  border: 1px solid var(--jazzclub-border) !important;
+  color: var(--spice-text) !important;
+}
+
+button:not([disabled]):hover svg { color: var(--spice-button-active); }
+
+/* Bottom player */
+[data-testid="now-playing-bar"], .Root__now-playing-bar {
+  background: linear-gradient(180deg, #19110C 0%, var(--spice-player) 52%, #0B0806 100%) !important;
+  border-top: 1px solid rgba(var(--spice-rgb-jazzclub-gold), .24);
+  box-shadow: 0 -10px 28px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+[data-testid="now-playing-bar"]::before, .Root__now-playing-bar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent 0 25%, rgba(var(--spice-rgb-jazzclub-gold), .025) 50%, transparent 75%);
+}
+
+[data-testid="now-playing-bar"] a { color: var(--spice-text) !important; }
+[data-testid="now-playing-bar"] a:hover { color: var(--spice-button-active) !important; }
+
+[data-testid="progress-bar"] [role="slider"],
+[data-testid="volume-bar"] [role="slider"] {
+  --progress-bar-color: var(--spice-button) !important;
+}
+
+/* Small player vinyl — real record with centred album label.
+   Appearance works from Spotify's stable cover-art button structure.
+   The .jazzclub-vinyl-host class is still supported for theme.js play/pause sync. */
+
+[data-testid="now-playing-bar"] [data-testid="cover-art-button"],
+.Root__now-playing-bar [data-testid="cover-art-button"],
+[data-testid="now-playing-bar"] .jazzclub-vinyl-button,
+.Root__now-playing-bar .jazzclub-vinyl-button {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  border-radius: 50% !important;
+}
+
+[data-testid="now-playing-bar"] [data-testid="cover-art-button"] > div:has(> img),
+.Root__now-playing-bar [data-testid="cover-art-button"] > div:has(> img),
+[data-testid="now-playing-bar"] .jazzclub-vinyl-host,
+.Root__now-playing-bar .jazzclub-vinyl-host {
+  position: relative !important;
+  width: 56px !important;
+  height: 56px !important;
+  min-width: 56px !important;
+  min-height: 56px !important;
+  flex: 0 0 56px !important;
+  box-sizing: border-box !important;
+  isolation: isolate;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  transform-origin: 50% 50% !important;
+  background:
+    radial-gradient(
+      circle at 35% 26%,
+      rgba(255,255,255,.08) 0%,
+      rgba(255,255,255,.025) 18%,
+      transparent 32%
+    ),
+    repeating-radial-gradient(
+      circle at center,
+      #050505 0px,
+      #050505 2px,
+      #111111 3px,
+      #070707 4px,
+      #070707 6px
+    ) !important;
+  box-shadow:
+    0 3px 10px rgba(0,0,0,.62),
+    inset 0 0 0 1px rgba(255,255,255,.10),
+    0 0 0 1px rgba(var(--spice-rgb-jazzclub-gold), .10) !important;
+  animation: jazzclub-vinyl-spin 9s linear infinite;
+  animation-play-state: paused;
+}
+
+/* Hide Spotify's fallback artwork icon, but not the actual cover image. */
+[data-testid="now-playing-bar"] [data-testid="cover-art-button"] > div:has(> img) > div,
+.Root__now-playing-bar [data-testid="cover-art-button"] > div:has(> img) > div,
+[data-testid="now-playing-bar"] .jazzclub-vinyl-host > div,
+.Root__now-playing-bar .jazzclub-vinyl-host > div {
+  display: none !important;
+}
+
+/* Soft reflected light over the vinyl. */
+[data-testid="now-playing-bar"] [data-testid="cover-art-button"] > div:has(> img)::before,
+.Root__now-playing-bar [data-testid="cover-art-button"] > div:has(> img)::before,
+[data-testid="now-playing-bar"] .jazzclub-vinyl-host::before,
+.Root__now-playing-bar .jazzclub-vinyl-host::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  border-radius: 50%;
+  pointer-events: none;
+  background:
+    conic-gradient(
+      from 20deg,
+      transparent 0deg 42deg,
+      rgba(255,255,255,.07) 58deg,
+      transparent 78deg 205deg,
+      rgba(255,255,255,.025) 220deg,
+      transparent 242deg 360deg
+    );
+}
+
+/* Tiny spindle hole. */
+[data-testid="now-playing-bar"] [data-testid="cover-art-button"] > div:has(> img)::after,
+.Root__now-playing-bar [data-testid="cover-art-button"] > div:has(> img)::after,
+[data-testid="now-playing-bar"] .jazzclub-vinyl-host::after,
+.Root__now-playing-bar .jazzclub-vinyl-host::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 3px;
+  height: 3px;
+  z-index: 6;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #050403;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.22),
+    0 0 2px rgba(0,0,0,.8);
+  pointer-events: none;
+}
+
+/* Album artwork becomes the centre label. */
+[data-testid="now-playing-bar"] [data-testid="cover-art-button"] > div:has(> img) > img,
+.Root__now-playing-bar [data-testid="cover-art-button"] > div:has(> img) > img,
+[data-testid="now-playing-bar"] .jazzclub-vinyl-host > img,
+.Root__now-playing-bar .jazzclub-vinyl-host > img {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: 34px !important;
+  max-height: 34px !important;
+  transform: translate(-50%, -50%) !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  z-index: 3;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.10),
+    0 0 0 2px rgba(0,0,0,.60) !important;
+  animation: none !important;
+}
+
+/* Rotate the whole record only when theme.js marks it as playing. */
+[data-testid="now-playing-bar"] .jazzclub-vinyl-host.is-playing,
+.Root__now-playing-bar .jazzclub-vinyl-host.is-playing {
+  animation-play-state: running;
+}
+
+/* Scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--spice-rgb-jazzclub-gold), .32) transparent;
+}
+
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+::-webkit-scrollbar-thumb {
+  background: rgba(var(--spice-rgb-jazzclub-gold), .24);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--spice-rgb-jazzclub-amber), .48);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Menus / dialogs */
+[data-testid="context-menu"], [role="menu"], [role="dialog"] {
+  background: #1A110C !important;
+  border: 1px solid var(--jazzclub-border) !important;
+  box-shadow: 0 16px 40px rgba(0,0,0,.52) !important;
+}
+
+[role="menuitem"]:hover {
+  background: rgba(var(--spice-rgb-jazzclub-amber), .10) !important;
+}
+
+/* Playlist/library rows intentionally inherit Spotify defaults. */
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .jazzclub-vinyl-host,
+  .jazzclub-vinyl-host.is-playing,
+  .jazzclub-large-vinyl-host,
+  .jazzclub-large-vinyl-host.is-playing {
+    animation: none !important;
+  }
+
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+@media (max-width: 900px) {
+  [data-testid="now-playing-bar"] { min-width: 0 !important; }
+}
+
+*:focus-visible {
+  outline: 2px solid var(--spice-button) !important;
+  outline-offset: 2px;
+}
+
+@keyframes jazzclub-vinyl-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ===== JAZZCLUB RELEASE PATCH BEGIN ===== */
+
+/* Modern Spotify / Encore accent system.
+   Keep primary/accent buttons amber in normal, hover, focus and press states. */
+.encore-dark-theme .encore-bright-accent-set,
+.encore-dark-theme .encore-bright-accent-set:hover,
+.encore-dark-theme .encore-bright-accent-set:focus,
+.encore-dark-theme .encore-bright-accent-set:focus-visible,
+.encore-dark-theme .encore-bright-accent-set:active,
+.encore-light-theme .encore-bright-accent-set,
+.encore-light-theme .encore-bright-accent-set:hover,
+.encore-light-theme .encore-bright-accent-set:focus-visible,
+.encore-light-theme .encore-bright-accent-set:active {
+  --background-base: #ffb52e !important;
+  --background-highlight: #ffd166 !important;
+  --background-press: #d9a441 !important;
+  --background-elevated-base: #ffb52e !important;
+  --background-elevated-highlight: #ffd166 !important;
+  --background-elevated-press: #d9a441 !important;
+  --text-bright-accent: #ffb52e !important;
+  --essential-bright-accent: #ffb52e !important;
+  --background-bright-accent: #ffb52e !important;
+  --decorative-base: #ffb52e !important;
+}
+
+/* Playlist/card Play buttons: warm amber surface, dark glyph. */
+#main button[data-testid="play-button"],
+#main button[data-encore-id="buttonPrimary"] {
+  --background-base: #ffb52e !important;
+  --background-highlight: #ffd166 !important;
+  --background-press: #d9a441 !important;
+  background-color: #ffb52e !important;
+  color: #17100b !important;
+}
+
+#main button[data-testid="play-button"]:hover,
+#main button[data-encore-id="buttonPrimary"]:hover {
+  background-color: #ffd166 !important;
+}
+
+#main button[data-testid="play-button"] svg,
+#main button[data-testid="play-button"] svg *,
+#main button[data-encore-id="buttonPrimary"] svg,
+#main button[data-encore-id="buttonPrimary"] svg * {
+  color: #17100b !important;
+  fill: currentColor !important;
+}
+
+/* Current-track equalizer: recolor only, never change track-row layout. */
+.main-trackList-playingIcon,
+.view-homeShortcutsGrid-equaliser,
+.main-devicePicker-nowPlayingActiveIcon {
+  background: #ffb52e !important;
+  color: #ffb52e !important;
+}
+
+img[src*="equaliser"],
+img[src*="equalizer"] {
+  filter:
+    brightness(0)
+    saturate(100%)
+    invert(79%)
+    sepia(63%)
+    saturate(1317%)
+    hue-rotate(335deg)
+    brightness(103%)
+    contrast(102%) !important;
+}
+
+/* Compact/sticky playlist and album headers always stay JazzClub walnut. */
+.main-topBar-background,
+.main-topBar-container,
+.main-topBar-topbarContent,
+.main-topBar-topbarContentFadeIn,
+.main-entityHeader-topbarContent,
+.main-entityHeader-topbarContentFadeIn {
+  background-color: #17100b !important;
+  background-image:
+    radial-gradient(
+      circle at 12% 18%,
+      rgba(255, 181, 46, .075),
+      transparent 34%
+    ),
+    linear-gradient(
+      180deg,
+      #21150c 0%,
+      #17100b 54%,
+      #100b08 100%
+    ) !important;
+}
+
+.main-entityHeader-background,
+.main-entityHeader-backgroundColor,
+.main-entityHeader-overlay,
+.main-actionBarBackground-background {
+  background-color: #17100b !important;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(42, 26, 16, .76) 0%,
+      rgba(23, 16, 11, .70) 42%,
+      rgba(13, 9, 6, .96) 100%
+    ) !important;
+}
+
+/* Back/forward navigation share one compact hi-fi pill. */
+.main-globalNav-historyButtons {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0 !important;
+  padding: 3px !important;
+  border: 1px solid rgba(255, 181, 46, .28) !important;
+  border-radius: 999px !important;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(42, 27, 16, .96),
+      rgba(18, 13, 9, .98)
+    ) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .025),
+    0 4px 12px rgba(0, 0, 0, .34) !important;
+}
+
+.main-globalNav-historyButtons > button {
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.main-globalNav-historyButtons > button:hover {
+  background: rgba(255, 181, 46, .10) !important;
+}
+
+/* Approved bottom-player Play/Pause knob:
+   dark vinyl-like face, amber ring, warm-white glyph. */
+[data-testid="control-button-playpause"],
+[data-testid="control-button-playpause"] > *,
+[data-testid="control-button-playpause"] span,
+[data-testid="control-button-playpause"] div {
+  background:
+    radial-gradient(
+      circle at 36% 28%,
+      #2a241f 0%,
+      #151210 40%,
+      #080706 72%,
+      #020202 100%
+    ) !important;
+}
+
+[data-testid="control-button-playpause"] {
+  border: 1px solid #ffb52e !important;
+  box-shadow:
+    inset 0 0 0 2px rgba(255,255,255,.025),
+    0 0 0 2px rgba(255,181,46,.10),
+    0 0 14px rgba(255,181,46,.14),
+    0 4px 9px rgba(0,0,0,.60) !important;
+  color: #fff4d6 !important;
+}
+
+[data-testid="control-button-playpause"]:hover {
+  border-color: #ffd166 !important;
+  color: #fff4d6 !important;
+}
+
+[data-testid="control-button-playpause"] svg,
+[data-testid="control-button-playpause"] svg *,
+[data-testid="control-button-playpause"] path,
+[data-testid="control-button-playpause"] polygon {
+  color: #fff4d6 !important;
+  fill: #fff4d6 !important;
+  stroke: none !important;
+  background: transparent !important;
+}
+
+/* Full App Display / Lyrics Plus integration (built into Spicetify; not vendored). */
+body.fad-activated #full-app-display {
+  background-color: #0d0906 !important;
+  color: #fff4d6 !important;
+}
+
+body.fad-activated #fad-background {
+  opacity: .82 !important;
+  filter:
+    sepia(.16)
+    saturate(.86)
+    brightness(.58)
+    contrast(1.05) !important;
+}
+
+body.fad-activated #fad-title,
+body.fad-activated #fad-artist {
+  color: #fff4d6 !important;
+}
+
+body.fad-activated #fad-album,
+body.fad-activated #fad-release-date,
+body.fad-activated #fad-elapsed,
+body.fad-activated #fad-duration {
+  color: #cdb98e !important;
+}
+
+body.fad-activated #fad-progress {
+  background-color: rgba(205, 185, 142, .22) !important;
+}
+
+body.fad-activated #fad-progress-inner,
+body.fad-activated #fad-thumb {
+  background-color: #ffb52e !important;
+  box-shadow: none !important;
+}
+
+body.fad-activated #fad-controls > button {
+  color: #cdb98e !important;
+}
+
+body.fad-activated #fad-controls > button:hover {
+  color: #ffd166 !important;
+}
+
+body.fad-activated #fad-controls > button > svg {
+  fill: currentColor !important;
+}
+
+body.fad-activated #fad-lyrics-plus-container {
+  --lyrics-color-active: #fff4d6 !important;
+  --lyrics-color-inactive: rgba(205, 185, 142, .34) !important;
+}
+
+/* ===== JAZZCLUB RELEASE PATCH END ===== */
+
+/* Vinyl-engine integration is standalone-only; Marketplace uses the CSS-only layer below. */
+
+
+/* ===== JAZZCLUB MARKETPLACE CSS-ONLY LAYER BEGIN =====
+   Marketplace installs this file without theme.js or bundled extensions.
+   Keep layout-safe: do not alter Spotify track-row display/grid/position. */
+
+/* Global nav: force the same walnut/amber language used by the standalone theme. */
+#global-nav-bar,
+.Root__globalNav,
+.main-globalNav-container {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(33, 21, 12, .98) 0%,
+      rgba(23, 16, 11, .98) 58%,
+      rgba(13, 9, 6, .98) 100%
+    ) !important;
+  border-bottom: 1px solid rgba(217, 164, 65, .14) !important;
+}
+
+.Root__globalNav .main-globalNav-navLink,
+.Root__globalNav .main-globalNav-searchInputContainer {
+  --background-base: #21150c !important;
+  --background-highlight: #2a1b10 !important;
+  --background-press: #17100b !important;
+  --text-base: #fff4d6 !important;
+  --text-subdued: #cdb98e !important;
+}
+
+/* Marketplace itself should look like JazzClub instead of a flat black page. */
+.contentSpacing:has(.marketplace-header),
+.main-view-container__scroll-node-child:has(.marketplace-header) {
+  background:
+    radial-gradient(circle at 78% 0%, rgba(255, 181, 46, .075), transparent 30%),
+    linear-gradient(180deg, #17100b 0%, #0d0906 42%, #0b0806 100%) !important;
+}
+
+.main-topBar-container:has(.marketplace-tabBar),
+.marketplace-tabBar,
+.marketplace-tabBar-nav {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(33, 21, 12, .98),
+      rgba(23, 16, 11, .98)
+    ) !important;
+  border-bottom: 1px solid rgba(217, 164, 65, .15) !important;
+}
+
+.marketplace-tabBar-headerItemLink {
+  color: #fff4d6 !important;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease !important;
+}
+
+.marketplace-tabBar-headerItemLink:hover {
+  background: rgba(255, 181, 46, .09) !important;
+  color: #ffd166 !important;
+}
+
+.marketplace-tabBar-active {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 181, 46, .18),
+      rgba(217, 164, 65, .10)
+    ) !important;
+  box-shadow:
+    inset 0 -2px 0 #ffb52e,
+    0 0 0 1px rgba(255, 181, 46, .10) !important;
+}
+
+.marketplace-header {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(23, 16, 11, .97),
+      rgba(13, 9, 6, .97)
+    ) !important;
+  border-bottom: 1px solid rgba(217, 164, 65, .12) !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .18) !important;
+}
+
+.marketplace-header__label,
+.marketplace-card-type-heading {
+  color: #fff4d6 !important;
+}
+
+.marketplace-header-icon-button,
+.searchbar-bar,
+.marketplace-sortBox .Dropdown-control {
+  background: #21150c !important;
+  border: 1px solid rgba(217, 164, 65, .18) !important;
+  color: #fff4d6 !important;
+  box-shadow: none !important;
+}
+
+.marketplace-header-icon-button:hover,
+.searchbar-bar:focus,
+.marketplace-sortBox .Dropdown-control:hover {
+  background: #2a1b10 !important;
+  border-color: rgba(255, 181, 46, .52) !important;
+}
+
+.marketplace-sortBox .Dropdown-menu {
+  background: #17100b !important;
+  border: 1px solid rgba(217, 164, 65, .20) !important;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, .52) !important;
+}
+
+.marketplace-sortBox .Dropdown-option {
+  background: transparent !important;
+  color: #cdb98e !important;
+}
+
+.marketplace-sortBox .Dropdown-option:hover,
+.marketplace-sortBox .Dropdown-option.is-selected {
+  background: rgba(255, 181, 46, .12) !important;
+  color: #fff4d6 !important;
+}
+
+.marketplace-grid .main-card-card {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(42, 27, 16, .94),
+      rgba(18, 13, 9, .98)
+    ) !important;
+  border: 1px solid rgba(217, 164, 65, .12) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .18) !important;
+}
+
+.marketplace-grid .main-card-card:hover {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(52, 32, 18, .98),
+      rgba(24, 15, 10, .98)
+    ) !important;
+  border-color: rgba(255, 181, 46, .34) !important;
+}
+
+.marketplace-card--installed {
+  border-color: #ffb52e !important;
+}
+
+.marketplace-card__tag,
+.marketplace-card__tags-more-btn {
+  background: rgba(255, 181, 46, .12) !important;
+  color: #fff4d6 !important;
+}
+
+.marketplace-installButton {
+  --background-base: #ffb52e !important;
+  --background-highlight: #ffd166 !important;
+  --background-press: #d9a441 !important;
+  color: #17100b !important;
+}
+
+/* Right Now Playing panel: suppress Spotify album-derived surface tint while
+   leaving the actual artwork / Canvas media untouched. */
+.Root__right-sidebar,
+aside.NowPlayingView,
+aside#Desktop_PanelContainer_Id:has([data-testid="NPV_Panel_OpenDiv"]) {
+  --background-base: #0d0906 !important;
+  --background-highlight: #21150c !important;
+  --background-press: #17100b !important;
+  --background-elevated-base: #17100b !important;
+  --background-elevated-highlight: #21150c !important;
+  --background-tinted-base: #17100b !important;
+  --background-tinted-highlight: #21150c !important;
+  --text-base: #fff4d6 !important;
+  --text-subdued: #cdb98e !important;
+  background:
+    radial-gradient(circle at 82% -6%, rgba(255, 181, 46, .07), transparent 28%),
+    linear-gradient(180deg, #17100b 0%, #0d0906 34%, #0b0806 100%) !important;
+  border-left: 1px solid rgba(217, 164, 65, .12) !important;
+}
+
+[data-testid="NPV_Panel_OpenDiv"],
+.main-nowPlayingView-content,
+.main-nowPlayingView-panel {
+  background: transparent !important;
+  background-image: none !important;
+}
+
+.main-nowPlayingView-section {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(33, 21, 12, .92),
+      rgba(18, 13, 9, .96)
+    ) !important;
+  border: 1px solid rgba(217, 164, 65, .10) !important;
+  box-shadow: none !important;
+}
+
+.main-nowPlayingView-sectionHeaderSpacing.main-nowPlayingView-lyricsGradient {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(33, 21, 12, .96),
+      rgba(13, 9, 6, .98)
+    ) !important;
+}
+
+.Root__right-sidebar .main-trackInfo-name,
+.Root__right-sidebar .main-trackInfo-name a {
+  color: #fff4d6 !important;
+}
+
+.Root__right-sidebar .main-trackInfo-artists,
+.Root__right-sidebar .main-trackInfo-artists a {
+  color: #cdb98e !important;
+}
+
+/* Preserve artwork visibility and geometry; only polish its framing. */
+.Root__right-sidebar [data-testid="track-visual-enhancement"] img,
+.Root__right-sidebar [data-testid="cover-drop-target"] img {
+  box-shadow:
+    0 12px 34px rgba(0, 0, 0, .42),
+    0 0 0 1px rgba(217, 164, 65, .08) !important;
+}
+
+/* CSS-only mini vinyl for Marketplace. It stays static because playback-aware
+   rotation requires JavaScript; standalone JazzClub keeps the synced version. */
+[data-testid="now-playing-bar"] [data-testid="cover-art-button"] > div:has(> img),
+.Root__now-playing-bar [data-testid="cover-art-button"] > div:has(> img) {
+  animation-play-state: paused !important;
+}
+
+/* Keep Marketplace loading/selection accents amber. */
+.marketplace-footer svg,
+.marketplace-header svg,
+.marketplace-tabBar svg {
+  color: #fff4d6 !important;
+}
+
+.marketplace-header-icon-button:hover svg,
+.marketplace-tabBar-headerItemLink:hover svg {
+  color: #ffd166 !important;
+}
+
+/* ===== JAZZCLUB MARKETPLACE CSS-ONLY LAYER END ===== */
+
+
+
+
+/* ===== JAZZCLUB MARKETPLACE REAL VINYL ENGINE BEGIN =====
+   Uses marketplace.js only to expose playback state and Spotify's extracted
+   album color as CSS variables. Visual rendering remains CSS-driven. */
+
+:root {
+  --jazzclub-vinyl-color: #2a241f;
+  --jazzclub-vinyl-color-dark: #11100f;
+  --jazzclub-vinyl-color-light: #4a4034;
+}
+
+/* Current bottom-player markup: make the cover-art button itself the record.
+   This avoids depending on Spotify's changing internal wrapper depth. */
+[data-testid="now-playing-bar"] [data-testid="cover-art-button"],
+.Root__now-playing-bar [data-testid="cover-art-button"],
+[data-testid="now-playing-widget"] [data-testid="cover-art-button"] {
+  position: relative !important;
+  width: 56px !important;
+  height: 56px !important;
+  min-width: 56px !important;
+  min-height: 56px !important;
+  max-width: 56px !important;
+  max-height: 56px !important;
+  flex: 0 0 56px !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  transform-origin: 50% 50% !important;
+  background:
+    conic-gradient(
+      from 18deg,
+      transparent 0 34deg,
+      rgba(255,255,255,.105) 52deg,
+      transparent 72deg 202deg,
+      rgba(255,255,255,.035) 220deg,
+      transparent 242deg 360deg
+    ),
+    repeating-radial-gradient(
+      circle at center,
+      color-mix(in srgb, var(--jazzclub-vinyl-color) 38%, #020202) 0 2px,
+      color-mix(in srgb, var(--jazzclub-vinyl-color-light) 24%, #0d0b09) 3px,
+      color-mix(in srgb, var(--jazzclub-vinyl-color-dark) 54%, #020202) 4px 6px
+    ),
+    radial-gradient(
+      circle at center,
+      color-mix(in srgb, var(--jazzclub-vinyl-color) 58%, #060504),
+      color-mix(in srgb, var(--jazzclub-vinyl-color-dark) 72%, #020202)
+    ) !important;
+  box-shadow:
+    0 4px 12px rgba(0,0,0,.64),
+    inset 0 0 0 1px rgba(255,255,255,.09),
+    0 0 0 1px rgba(255,181,46,.14) !important;
+  animation: jazzclub-vinyl-spin 9s linear infinite !important;
+  animation-play-state: paused !important;
+}
+
+/* Neutralize current Spotify cover wrappers so the record background stays visible. */
+[data-testid="now-playing-bar"] [data-testid="cover-art-button"] > div,
+.Root__now-playing-bar [data-testid="cover-art-button"] > div,
+[data-testid="now-playing-widget"] [data-testid="cover-art-button"] > div {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  background: transparent !important;
+  border-radius: 50% !important;
+  overflow: visible !important;
+}
+
+/* Artwork is the paper label in the centre of the record. */
+[data-testid="now-playing-bar"] [data-testid="cover-art-button"] img,
+.Root__now-playing-bar [data-testid="cover-art-button"] img,
+[data-testid="now-playing-widget"] [data-testid="cover-art-button"] img,
+[data-testid="now-playing-bar"] [data-testid="cover-art-image"],
+.Root__now-playing-bar [data-testid="cover-art-image"] {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
+  max-width: 34px !important;
+  max-height: 34px !important;
+  transform: translate(-50%, -50%) !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  z-index: 3 !important;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.10),
+    0 0 0 2px rgba(0,0,0,.65) !important;
+}
+
+/* Real spindle over the label. */
+[data-testid="now-playing-bar"] [data-testid="cover-art-button"]::after,
+.Root__now-playing-bar [data-testid="cover-art-button"]::after,
+[data-testid="now-playing-widget"] [data-testid="cover-art-button"]::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 3px;
+  height: 3px;
+  z-index: 8;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #040302;
+  box-shadow:
+    0 0 0 1px rgba(255,244,214,.28),
+    0 0 3px rgba(0,0,0,.9);
+  pointer-events: none;
+}
+
+html[data-jazzclub-playing="true"]
+:is(
+  [data-testid="now-playing-bar"],
+  .Root__now-playing-bar,
+  [data-testid="now-playing-widget"]
+)
+[data-testid="cover-art-button"] {
+  animation-play-state: running !important;
+}
+
+/* Large Now Playing vinyl.
+   Current Spotify exposes the static art below track-visual-enhancement /
+   cover-drop-target even on tracks that can also have Canvas. */
+.Root__right-sidebar [data-testid="track-visual-enhancement"] {
+  overflow: visible !important;
+}
+
+.Root__right-sidebar
+[data-testid="track-visual-enhancement"]
+[data-testid="cover-drop-target"],
+.Root__right-sidebar
+[data-testid="track-visual-enhancement"]
+[data-testid="cover-drop-target"]:has(img) {
+  position: relative !important;
+  aspect-ratio: 1 / 1 !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  border-radius: 50% !important;
+  transform-origin: 50% 50% !important;
+  background:
+    conic-gradient(
+      from 16deg,
+      transparent 0 36deg,
+      rgba(255,255,255,.115) 54deg,
+      transparent 76deg 204deg,
+      rgba(255,255,255,.04) 224deg,
+      transparent 246deg 360deg
+    ),
+    repeating-radial-gradient(
+      circle at center,
+      color-mix(in srgb, var(--jazzclub-vinyl-color) 42%, #020202) 0 4px,
+      color-mix(in srgb, var(--jazzclub-vinyl-color-light) 26%, #0c0a08) 5px,
+      color-mix(in srgb, var(--jazzclub-vinyl-color-dark) 58%, #020202) 6px 10px
+    ),
+    radial-gradient(
+      circle at center,
+      color-mix(in srgb, var(--jazzclub-vinyl-color) 66%, #060504),
+      color-mix(in srgb, var(--jazzclub-vinyl-color-dark) 78%, #020202)
+    ) !important;
+  box-shadow:
+    0 18px 44px rgba(0,0,0,.58),
+    inset 0 0 0 1px rgba(255,255,255,.08),
+    0 0 0 1px rgba(217,164,65,.16) !important;
+  animation: jazzclub-vinyl-spin 9s linear infinite !important;
+  animation-play-state: paused !important;
+}
+
+/* If Spotify wraps the image, keep the wrapper transparent and full-size. */
+.Root__right-sidebar
+[data-testid="track-visual-enhancement"]
+[data-testid="cover-drop-target"]
+> :not(img) {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent !important;
+  border-radius: 50% !important;
+  overflow: visible !important;
+}
+
+/* Centre label for the large record. */
+.Root__right-sidebar
+[data-testid="track-visual-enhancement"]
+[data-testid="cover-drop-target"]
+img {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  width: 46% !important;
+  height: 46% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: 46% !important;
+  max-height: 46% !important;
+  transform: translate(-50%, -50%) !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  z-index: 3 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  box-shadow:
+    0 0 0 2px rgba(0,0,0,.72),
+    0 0 0 3px rgba(255,255,255,.08) !important;
+}
+
+/* Large spindle and reflected light. */
+.Root__right-sidebar
+[data-testid="track-visual-enhancement"]
+[data-testid="cover-drop-target"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border-radius: 50%;
+  pointer-events: none;
+  background:
+    conic-gradient(
+      from 20deg,
+      transparent 0 40deg,
+      rgba(255,255,255,.07) 58deg,
+      transparent 80deg 206deg,
+      rgba(255,255,255,.025) 224deg,
+      transparent 246deg 360deg
+    );
+}
+
+.Root__right-sidebar
+[data-testid="track-visual-enhancement"]
+[data-testid="cover-drop-target"]::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  z-index: 8;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #040302;
+  box-shadow:
+    0 0 0 2px rgba(255,244,214,.24),
+    0 0 5px rgba(0,0,0,.9);
+  pointer-events: none;
+}
+
+html[data-jazzclub-playing="true"]
+.Root__right-sidebar
+[data-testid="track-visual-enhancement"]
+[data-testid="cover-drop-target"] {
+  animation-play-state: running !important;
+}
+
+/* JazzClub uses the static album record instead of Canvas in NPV.
+   Scope this only to the right Now Playing panel. */
+.Root__right-sidebar:has([data-testid="track-visual-enhancement"])
+.canvasVideoContainerNPV,
+.Root__right-sidebar:has([data-testid="track-visual-enhancement"])
+video[src^="blob:"] {
+  display: none !important;
+}
+
+/* Keep the current Play/Pause glyph white after Encore state changes. */
+[data-testid="control-button-playpause"],
+[data-testid="control-button-playpause"] * {
+  --text-base: #fff4d6 !important;
+  --text-subdued: #fff4d6 !important;
+  --essential-base: #fff4d6 !important;
+  --decorative-base: #fff4d6 !important;
+  color: #fff4d6 !important;
+}
+
+[data-testid="control-button-playpause"]
+:is(svg, path, polygon, rect, circle),
+[data-testid="control-button-playpause"]
+* :is(svg, path, polygon, rect, circle) {
+  color: #fff4d6 !important;
+  fill: #fff4d6 !important;
+  stroke: #fff4d6 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-testid="now-playing-bar"] [data-testid="cover-art-button"],
+  .Root__now-playing-bar [data-testid="cover-art-button"],
+  .Root__right-sidebar
+  [data-testid="track-visual-enhancement"]
+  [data-testid="cover-drop-target"] {
+    animation: none !important;
+  }
+}
+
+/* ===== JAZZCLUB MARKETPLACE REAL VINYL ENGINE END ===== */
+
+
+/* ===== SPOTIFY SPICE VINYL ADAPTER BEGIN =====
+   Large NPV vinyl is rendered by an exact runtime clone of Spotify Spice's
+   own stylesheet with only the obsolete #main scope widened to current NPV.
+   No large-record gradients/pseudo-elements are reimplemented here. */
+
+/* Mini player: upstream Spotify Spice does not provide a mini-player selector,
+   so JazzClub applies its public Vinyl variables/state to the proven mini host. */
+[data-testid="now-playing-bar"] [data-testid="cover-art-button"] > div:has(img),
+.Root__now-playing-bar [data-testid="cover-art-button"] > div:has(img),
+[data-testid="now-playing-bar"] .jazzclub-vinyl-host,
+.Root__now-playing-bar .jazzclub-vinyl-host {
+  background:
+    var(--vinyl-shine),
+    var(--vinyl-groove),
+    var(--vinyl-base) !important;
+  animation:
+    rotate-vinyl var(--vinyl-duration, 12s) linear infinite
+    var(--vinyl-play-state, paused) !important;
+  box-shadow:
+    0 0 5px var(--vinyl-shadow-inset, #0a0a0a) inset,
+    0 3px 10px rgba(0,0,0,.62),
+    0 0 2px #000 !important;
+}
+
+/* Only compatibility geometry: never clip Spotify Spice's 1.5x NPV record. */
+.jazzclub-spotify-spice-visual,
+.jazzclub-spotify-spice-visual > *,
+.jazzclub-spotify-spice-drop,
+.jazzclub-spotify-spice-drop > *,
+.jazzclub-spotify-spice-drop *:has(> .jazzclub-spotify-spice-large-vinyl),
+.jazzclub-spotify-spice-large-vinyl {
+  overflow: visible !important;
+}
+
+.jazzclub-spotify-spice-visual,
+.jazzclub-spotify-spice-drop {
+  opacity: 1 !important;
+  visibility: visible !important;
+  box-shadow: none !important;
+}
+
+/* Spotify Spice itself recommends Canvas off to keep Vinyl visible in NPV. */
+.Root__right-sidebar:has(.jazzclub-spotify-spice-large-vinyl) .canvasVideoContainerNPV,
+.Root__right-sidebar:has(.jazzclub-spotify-spice-large-vinyl) video[src^="blob:"],
+[data-testid="NPV_Panel_OpenDiv"]:has(.jazzclub-spotify-spice-large-vinyl) .canvasVideoContainerNPV,
+[data-testid="NPV_Panel_OpenDiv"]:has(.jazzclub-spotify-spice-large-vinyl) video[src^="blob:"] {
+  display: none !important;
+}
+
+/* Keep approved Play/Pause glyph white. */
+[data-testid="control-button-playpause"],
+[data-testid="control-button-playpause"] * {
+  --text-base: #fff4d6 !important;
+  --text-subdued: #fff4d6 !important;
+  --essential-base: #fff4d6 !important;
+  --decorative-base: #fff4d6 !important;
+  color: #fff4d6 !important;
+}
+
+[data-testid="control-button-playpause"] :is(svg, path, polygon, rect, circle),
+[data-testid="control-button-playpause"] * :is(svg, path, polygon, rect, circle) {
+  color: #fff4d6 !important;
+  fill: #fff4d6 !important;
+  stroke: #fff4d6 !important;
+}
+
+/* ===== SPOTIFY SPICE VINYL ADAPTER END ===== */
+
+
+/* ===== JAZZCLUB MINI VINYL — SPOTIFY SPICE COLOR SYNC BEGIN =====
+   The bridge marks the actual mini-player artwork host at runtime.
+   This selector intentionally outranks the older fixed-black mini-vinyl rule.
+   Color, grooves, shine, RPM and play state all come from Spotify Spice. */
+
+[data-testid="now-playing-bar"]
+[data-testid="cover-art-button"]
+.jazzclub-spotify-spice-mini-vinyl,
+.Root__now-playing-bar
+[data-testid="cover-art-button"]
+.jazzclub-spotify-spice-mini-vinyl,
+[data-testid="now-playing-widget"]
+[data-testid="cover-art-button"]
+.jazzclub-spotify-spice-mini-vinyl {
+  position: relative !important;
+  width: 56px !important;
+  height: 56px !important;
+  min-width: 56px !important;
+  min-height: 56px !important;
+  max-width: 56px !important;
+  max-height: 56px !important;
+  flex: 0 0 56px !important;
+  box-sizing: border-box !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+  border-radius: 50% !important;
+  transform-origin: 50% 50% !important;
+  background:
+    var(--vinyl-shine),
+    var(--vinyl-groove),
+    var(--vinyl-base) !important;
+  box-shadow:
+    0 0 5px var(--vinyl-shadow-inset, #0a0a0a) inset,
+    0 3px 10px rgba(0,0,0,.62),
+    0 0 2px #000 !important;
+  animation:
+    rotate-vinyl var(--vinyl-duration, 12s) linear infinite
+    var(--vinyl-play-state, paused) !important;
+}
+
+/* Keep the cover itself as the centre label, while the surrounding disc uses
+   the exact same Spotify Spice color variables as the large NPV vinyl. */
+[data-testid="now-playing-bar"]
+[data-testid="cover-art-button"]
+.jazzclub-spotify-spice-mini-vinyl
+> img,
+.Root__now-playing-bar
+[data-testid="cover-art-button"]
+.jazzclub-spotify-spice-mini-vinyl
+> img,
+[data-testid="now-playing-widget"]
+[data-testid="cover-art-button"]
+.jazzclub-spotify-spice-mini-vinyl
+> img {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
+  max-width: 34px !important;
+  max-height: 34px !important;
+  transform: translate(-50%, -50%) !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+  z-index: 3 !important;
+  animation: none !important;
+}
+
+/* The old JazzClub light-reflection pseudo-element would sit above the
+   Spotify Spice shine. Disable only that reflection for the runtime-bound host;
+   keep the tiny spindle hole in ::after. */
+[data-testid="now-playing-bar"]
+[data-testid="cover-art-button"]
+.jazzclub-spotify-spice-mini-vinyl::before,
+.Root__now-playing-bar
+[data-testid="cover-art-button"]
+.jazzclub-spotify-spice-mini-vinyl::before,
+[data-testid="now-playing-widget"]
+[data-testid="cover-art-button"]
+.jazzclub-spotify-spice-mini-vinyl::before {
+  display: none !important;
+}
+
+/* ===== JAZZCLUB MINI VINYL — SPOTIFY SPICE COLOR SYNC END ===== */
+
+
+/* ===== JAZZCLUB ENTITY HEADER GAP REMOVAL BEGIN =====
+   Remove the internal Spotify entity-page topbar spacer itself, rather than
+   only making it transparent. This keeps playlist/album artwork fully visible. */
+
+.main-view-container:has([data-testid="entity-header"]) .main-topBar-container,
+.main-view-container:has([data-testid="entity-header"]) .main-topBar-background,
+.main-view-container:has([data-testid="entity-header"]) .main-topBar-overlay,
+.main-view-container:has([data-testid="entity-header"]) .main-topBar-topbarContent,
+.main-view-container:has([data-testid="entity-header"]) .main-topBar-topbarContentFadeIn,
+.main-view-container:has([data-testid="entity-header"]) .main-entityHeader-topbarContent,
+.main-view-container:has([data-testid="entity-header"]) .main-entityHeader-topbarContentFadeIn {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Keep playlist artwork at its native size. */
+[data-testid="entity-header"] [data-testid="playlist-image"],
+[data-testid="entity-header"] [data-testid="playlist-image"] img,
+.main-entityHeader-imageContainer,
+.main-entityHeader-imageContainer img,
+.main-entityHeader-imageContainerNew,
+.main-entityHeader-imageContainerNew img {
+  transform: none !important;
+}
+
+/* ===== JAZZCLUB ENTITY HEADER GAP REMOVAL END ===== */
