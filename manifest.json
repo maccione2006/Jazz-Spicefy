@@ -1,9 +1,9 @@
 {
   "name": "JazzClub",
-  "version": "1.6.0",
-  "description": "Marketplace revision 7: JazzClub with synchronized Spotify Spice vinyl and no opaque entity topbar overlay clipping playlist/album covers.",
+  "version": "1.7.0",
+  "description": "Marketplace revision 8: JazzClub with synchronized Spotify Spice vinyl and the playlist header spacer removed.",
   "preview": "preview.svg",
-  "usercss": "JazzClub/marketplace-v7.css",
+  "usercss": "JazzClub/marketplace-v8.css",
   "schemes": "JazzClub/color.ini",
   "readme": "README.md",
   "authors": [
