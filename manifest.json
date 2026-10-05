@@ -1,9 +1,9 @@
 {
   "name": "JazzClub",
-  "version": "1.14.0",
-  "description": "Marketplace revision 15: JazzClub keeps a single Spotify Spice vinyl layer and slightly scales down both large and mini artwork labels without introducing a second dark disc.",
+  "version": "1.15.0",
+  "description": "Marketplace revision 16: JazzClub uses real-vinyl label proportions in both large and mini players, with a single Spotify Spice disc and a true spindle hole.",
   "preview": "preview.svg",
-  "usercss": "JazzClub/marketplace-v15.css",
+  "usercss": "JazzClub/marketplace-v16.css",
   "schemes": "JazzClub/color.ini",
   "readme": "README.md",
   "authors": [
@@ -20,6 +20,6 @@
     "hifi"
   ],
   "include": [
-    "https://raw.githubusercontent.com/maccione2006/Jazz-Spicefy/8afc1937af98e14710b79e0f18eab47531fdf05b/Extensions/vinyl-marketplace-v13.js"
+    "https://raw.githubusercontent.com/maccione2006/Jazz-Spicefy/75527b8578d8e23107f0ff718808f235b0723997/Extensions/vinyl-marketplace-v16.js"
   ]
 }
